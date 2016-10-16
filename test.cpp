@@ -37,12 +37,7 @@ while(strcmp(command,"q"))
   printf("%s","$");
   cin.getline(command, 100);
   parse(command, argv);
-
-
-
-
-
-
-
+}
+return 0;
 
 }
