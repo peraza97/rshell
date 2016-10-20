@@ -8,10 +8,10 @@
 
 using namespace std;
 
-void parseLine(char * cmd)
+void parseLine(char * cmd, char * tok [])
 {
 
-char * tok[1000];
+//char * tok[1000];
 //char array for tokenizing
 char *part = strtok(cmd, " ");
 int i = 0;
@@ -22,8 +22,6 @@ tok[i] = part;
     tok[++i] = part;
   }
   tok[i]= NULL;
-  execvp(tok[0],tok);
-
 }
 
 int main(int argc, char *argv[])
@@ -32,6 +30,7 @@ int main(int argc, char *argv[])
   //the loop that keeps the shell going for ever
   for(;;)
   {
+    char * tok[1000];
     string usr;
     //first thing to do is print out the $ before everyline
     cout << "$";
@@ -39,7 +38,21 @@ int main(int argc, char *argv[])
     getline(cin,usr);
     char *cmd = new char[usr.size() + 1];
     strcpy(cmd, usr.c_str());
-    parseLine(cmd);
+    //fill the tok function with the requred stuffs
+    parseLine(cmd,tok);
+
+    pid_t pid = fork();
+
+
+    if(pid == 0)
+    {
+    execvp(tok[0],tok);
+    }
+    else
+    {
+      wait(0);
+    }
+
   }
 
 return 0;
