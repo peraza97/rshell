@@ -6,7 +6,7 @@ class And : public Connector
 {
 	public:
 	And(){};
-	And( char* userInput);
+	And( char* userInput): Connector(userInput){};
 	bool execute();
 
 };
