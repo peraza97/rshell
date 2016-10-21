@@ -7,6 +7,7 @@ using namespace std;
 class Exit : public Shell
 {
 	public:
+	Exit(){};
 	bool execute();
 };
 
