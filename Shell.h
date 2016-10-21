@@ -8,8 +8,10 @@ class Shell
 	protected:
 	char* input;
 	public:
-	Shell(char* command): input(command);
-	virtual bool execute() = 0;	
-}
-	
+
+		Shell(): input(NULL) {};
+		Shell(char* command): input(command){};
+		virtual bool execute() = 0;
+};
+
 #endif

@@ -3,12 +3,12 @@
 #include "Connector.h"
 
 class Or : public Connector
+{
+  public:
+    Or(){};
+    Or(char* userInput);
+    bool execute();
 
-        public:
-        Or(char* userInput);
-        execute();
-
-}
+};
 
 #endif
-

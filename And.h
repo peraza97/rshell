@@ -3,11 +3,12 @@
 #include "Connector.h"
 
 class And : public Connector
-
+{
 	public:
-	And(char* userInput);
-	execute();
+	And(){};
+	And( char* userInput);
+	bool execute();
 
-}
+};
 
 #endif

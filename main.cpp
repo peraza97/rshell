@@ -6,6 +6,14 @@
 #include <stdlib.h>
 #include <cstring>
 
+#include "Shell.h"
+#include "And.h"
+#include "Cmd.h"
+#include "Connector.h"
+#include "Exit.h"
+#include "Or.h"
+#include "Semi.h"
+
 using namespace std;
 
 void parseLine(char * cmd, char * tok [])

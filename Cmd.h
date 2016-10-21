@@ -1,13 +1,13 @@
-#include "Shell.h"
 #ifndef CMD_H
 #define CMD_H
 #include <iostream>
+#include "Shell.h"
 using namespace std;
 
-class cmd : public Shell
+class Cmd : public Shell
 {
 	public:
-	bool execute();	
-}
-	
+	bool execute();
+};
+
 #endif

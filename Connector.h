@@ -1,7 +1,7 @@
-#include "Shell.h"
 #ifndef CONNECTOR_H
 #define CONNECTOR_H
 #include <iostream>
+#include "Shell.h"
 using namespace std;
 
 class Connector : public Shell
@@ -9,8 +9,11 @@ class Connector : public Shell
 	private:
 	Shell* left;
 	Shell* right;
+
 	public:
-	bool execute();	
-}
-	
+	Connector(){};
+	Connector(char * user):Shell(user){};
+	bool execute();
+};
+
 #endif

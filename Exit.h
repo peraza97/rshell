@@ -1,13 +1,13 @@
-#include "Shell.h"
 #ifndef EXIT_H
 #define EXIT_H
 #include <iostream>
+#include "Shell.h"
 using namespace std;
 
-class exit : public Shell
+class Exit : public Shell
 {
 	public:
-	bool execute();	
-}
-	
+	bool execute();
+};
+
 #endif

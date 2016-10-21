@@ -3,12 +3,12 @@
 #include "Connector.h"
 
 class Semi : public Connector
+{
+  public:
+  Semi(){};
+  Semi(char* userInput): Connector(userInput){};
+  bool execute();
 
-        public:
-        Semi(char* userInput);
-        execute();
-
-}
+};
 
 #endif
-
