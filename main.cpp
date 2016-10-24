@@ -40,10 +40,22 @@ int main(int argc, char *argv[])
   {
     char * tok[1000];
     string usr;
-    //first thing to do is print out the $ before everyline
     cout << "$";
-    // Get input from the user and then turn it into a char   * array
+    // Get input from the user
     getline(cin,usr);
+
+    /*going to check for any comments now
+      and if found, trunkate the string */
+    size_t comment = usr.find("#");
+    if(comment!= string::npos)
+    {
+      usr = usr.substr(0,comment);
+    }
+
+
+
+
+
     char *cmd = new char[usr.size() + 1];
     strcpy(cmd, usr.c_str());
     //fill the tok function with the requred stuffs
