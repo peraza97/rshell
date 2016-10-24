@@ -16,6 +16,18 @@
 
 using namespace std;
 
+
+//this removes the input after a # symbol
+void removeComment(string &line)
+{
+  size_t comment = line.find("#");
+  if(comment!= string::npos)
+  {
+    line= line.substr(0,comment);
+  }
+
+}
+
 void parseLine(char * cmd, char * tok [])
 {
 
@@ -43,16 +55,7 @@ int main(int argc, char *argv[])
     cout << "$";
     // Get input from the user
     getline(cin,usr);
-
-    /*going to check for any comments now
-      and if found, trunkate the string */
-    size_t comment = usr.find("#");
-    if(comment!= string::npos)
-    {
-      usr = usr.substr(0,comment);
-    }
-
-
+    removeComment(usr);
 
 
 
