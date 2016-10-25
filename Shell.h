@@ -14,12 +14,12 @@ using namespace std;
 class Shell
 {
 	protected:
-	char* input;
+	char * userInput;
 	public:
 
-		Shell(): input(NULL) {};
-		Shell(char* command): input(command){};
-		virtual bool execute() = 0;
+	Shell(): userInput(NULL) {};
+	Shell(char* command): userInput(command){};
+	virtual bool execute() = 0;
 };
 
 #endif

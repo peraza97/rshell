@@ -1,3 +1,4 @@
+#include <pwd.h>
 #include <unistd.h>
 #include <iostream>
 #include <stdio.h>
@@ -28,54 +29,36 @@ void removeComment(string &line)
 
 }
 
-void parseLine(char * cmd, char * tok [])
+void hostName()
 {
 
-//char * tok[1000];
-//char array for tokenizing
-char *part = strtok(cmd, " ");
-int i = 0;
-tok[i] = part;
-  while(part != NULL)
-  {
-    part = strtok(NULL, " ");
-    tok[++i] = part;
-  }
-  tok[i]= NULL;
+  register struct passwd *p;
+  register uid_t uid;
+  uid = geteuid ();
+  p = getpwuid (uid);
+  if (p)
+    {
+      cout << p->pw_name;
+    }
+
+char host[500];
+host[499] = '\0';
+gethostname(host, 499);
+printf("@%s", host);
+
 }
+
 
 int main(int argc, char *argv[])
 {
-
+  int a;
   //the loop that keeps the shell going for ever
-  for(;;)
+  cin >> a;
+  while(a != 0)
   {
-    char * tok[1000];
-    string usr;
-    cout << "$";
-    // Get input from the user
-    getline(cin,usr);
-    removeComment(usr);
-
-
-
-    char *cmd = new char[usr.size() + 1];
-    strcpy(cmd, usr.c_str());
-    //fill the tok function with the requred stuffs
-    parseLine(cmd,tok);
-
-    pid_t pid = fork();
-
-
-    if(pid == 0)
-    {
-    execvp(tok[0],tok);
-    }
-    else
-    {
-      wait(0);
-    }
-
+      hostName();
+      cout << "$ ";
+      cin >> a;
   }
 
 return 0;
