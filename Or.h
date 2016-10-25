@@ -6,7 +6,7 @@ class Or : public Connector
 {
   public:
     Or(){};
-    Or(char* userInput): Connector(userInput){};
+    Or(Shell * l, Shell * r): Connector(l,r){};
     bool execute();
 
 };

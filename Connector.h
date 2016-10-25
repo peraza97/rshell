@@ -12,7 +12,7 @@ class Connector : public Shell
 
 	public:
 	Connector(){};
-	Connector(char * userInput):Shell(userInput){};
+	Connector(Shell * l, Shell * r):left(l), right(r){};
 	bool execute();
 };
 

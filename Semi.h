@@ -6,7 +6,7 @@ class Semi : public Connector
 {
   public:
   Semi(){};
-  Semi(char* userInput): Connector(userInput){};
+  Semi(Shell * l, Shell * r): Connector(l,r){};
   bool execute();
 
 };

@@ -5,6 +5,6 @@ using namespace std;
 
 bool Exit:: execute()
 {
-	cout << userInput[0];
+	
 	return true;
 }
