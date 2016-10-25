@@ -3,8 +3,7 @@
 #include <iostream>
 using namespace std;
 
-bool Exit:: execute()
+bool Exit::execute()
 {
-	
 	return true;
 }

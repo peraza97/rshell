@@ -20,6 +20,17 @@ using namespace std;
 
 //this removes the input after a # symbol
 
+/*
+void removeComment(string &line)
+{
+  size_t comment = line.find("#");
+  if(comment!= string::npos)
+  {
+    line= line.substr(0,comment);
+  }
+
+}
+*/
 
 void info()
 {
@@ -47,6 +58,8 @@ int main(int argc, char *argv[])
 {
   //variables
   string input;
+
+
 
   //infinite loop
   for(;;)
