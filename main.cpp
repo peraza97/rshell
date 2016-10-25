@@ -31,7 +31,7 @@ void removeComment(string &line)
 
 void info()
 {
-
+  //retrieve username
   register struct passwd *p;
   register uid_t uid;
   uid = geteuid ();
@@ -41,6 +41,8 @@ void info()
       cout << p->pw_name;
     }
 
+
+//retrieve host name
 char host[500];
 host[499] = '\0';
 gethostname(host, 499);
@@ -60,7 +62,7 @@ int main(int argc, char *argv[])
   info();
   cout << "$ ";
   getline(cin, input);
-  
+
   }
 
 
