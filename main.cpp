@@ -19,6 +19,7 @@ using namespace std;
 
 
 //this removes the input after a # symbol
+/*
 void removeComment(string &line)
 {
   size_t comment = line.find("#");
@@ -28,7 +29,7 @@ void removeComment(string &line)
   }
 
 }
-
+*/
 void info()
 {
   //retrieve username
