@@ -63,7 +63,7 @@ int main(int argc, char *argv[])
   info();
   cout << "$ ";
   getline(cin, input);
-
+  
   }
 
 
