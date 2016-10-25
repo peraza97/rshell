@@ -5,5 +5,8 @@ using namespace std;
 
 bool Exit::execute()
 {
+
+	//execvp(cmd[0],cmd);
+
 	return true;
 }

@@ -25,7 +25,7 @@ bool Cmd::execute()
     }
 
   }
-
+  //parent process
   else if(pid > 0)
   {
     wait(0);
