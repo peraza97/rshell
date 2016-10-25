@@ -29,7 +29,7 @@ void removeComment(string &line)
 
 }
 
-void hostName()
+void info()
 {
 
   register struct passwd *p;
@@ -51,15 +51,18 @@ printf("@%s", host);
 
 int main(int argc, char *argv[])
 {
-  int a;
-  //the loop that keeps the shell going for ever
-  cin >> a;
-  while(a != 0)
+  //variables
+  string input;
+
+  //infinite loop
+  for(;;)
   {
-      hostName();
-      cout << "$ ";
-      cin >> a;
+  info();
+  cout << "$ ";
+  getline(cin, input);
+  
   }
+
 
 return 0;
 }
