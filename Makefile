@@ -1,14 +1,33 @@
-CC=g++
-CC_FLAGS=-Wall -ansi
-EXEC=test.out
-SOURCES=$(wildcard *.cpp)
-OBJECTS=$(SOURCES:.cpp=.o)
+COMPILE = g++
+FLAGS = -Werror -Wall -ansi
 
-$(EXEC): $(OBJECTS)
-	$(CC) $(OBJECTS) -o $(EXEC)
 
-%.o: %.cpp
-	$(CC) -c $(CC_FLAGS) $< -o $@
+all: 
+	mkdir -p ./bin
+	$(COMPILE) $(FLAGS) ./src/main.cpp -o ./bin/rshell
+main:
+	$(COMPILE) $(FLAGS) ./src/main.cpp
+
+Shell:
+	$(COMPILE) $(FLAGS) -c ./src/Shell.cpp
+
+Connector:
+	$(COMPILE) $(FLAGS) -c ./src/Connector.cpp
+
+Cmd:
+		$(COMPILE) $(FLAGS) -c ./src/Cmd.cpp
+
+Exit:
+		$(COMPILE) $(FLAGS) -c ./src/Exit.cpp
+
+And:
+		$(COMPILE) $(FLAGS) -c ./src/And.cpp
+
+Or:
+	$(COMPILE) $(FLAGS) -c ./src/Or.cpp
+
+Semi:
+	$(COMPILE) $(FLAGS) -c ./src/Semi.cpp
 
 clean:
-	rm -f $(EXEC) $(OBJECTS)
+	rm -rf ./bin
