@@ -1,3 +1,5 @@
+#ifndef SEMI_CPP
+#define SEMI_CPP
 #include "Semi.h"
 
 bool Semi::execute()
@@ -12,3 +14,4 @@ bool Semi::execute()
 		return false;
 	}
 }
+#endif

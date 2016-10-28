@@ -15,12 +15,11 @@ class Shell
 {
 	protected:
 	char* cmd;
-	public:
 
-	Shell(){};
+	public:
+	Shell(): cmd(NULL){};
 	Shell(char* userInput): cmd(userInput){};
 	virtual bool execute() = 0;
-	//char** parse();
 };
 
 #endif

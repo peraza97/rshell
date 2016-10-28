@@ -1,4 +1,7 @@
+#ifndef CMD_CPP
+#define CMD_CPP
 #include "Cmd.h"
+
 
 
 bool Cmd::execute()
@@ -34,3 +37,4 @@ bool Cmd::execute()
 
   return status;
 }
+#endif
