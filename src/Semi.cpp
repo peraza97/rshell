@@ -3,6 +3,12 @@
 bool Semi::execute()
 {
 	left->execute();
-	right->execute();
-	return true;
+	if(right->execute())
+	{
+		return true;
+	}
+	else
+	{
+		return false;
+	}
 }

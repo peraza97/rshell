@@ -2,9 +2,10 @@
 
 bool And::execute()
 {
+	
 	if(left->execute())
 	{
-		return right->execute();	
+		return right->execute();
 	}
 	return false;
 }
