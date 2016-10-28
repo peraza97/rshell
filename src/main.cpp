@@ -8,12 +8,12 @@
 #include <cstring>
 
 #include "Shell.h"
-#include "Cmd.h"
-#include "Exit.h"
-#include "Connector.h"
-#include "And.h"
-#include "Or.h"
-#include "Semi.h"
+#include "Cmd.cpp"
+#include "Exit.cpp"
+#include "Connector.cpp"
+#include "And.cpp"
+#include "Or.cpp"
+#include "Semi.cpp"
 
 using namespace std;
 
