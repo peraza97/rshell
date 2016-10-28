@@ -2,30 +2,29 @@
 COMPILE = g++
 FLAGS =-Wall  -Werror  -ansi -pedantic
 
-all:
-	mkdir -p ./bin
-	$(COMPILE) $(FLAGS) ./src/main.cpp -o ./bin/rshell
+OBJS = ./bin/Connector.o ./bin/Cmd.o ./bin/Exit.o ./bin/And.o ./bin/Or.o ./bin/Semi.o
 
-main:
-	$(COMPILE) $(FLAGS) ./src/main.cpp
 
-Connector:
-	$(COMPILE) $(FLAGS) ./src/Connector.cpp
+all: ./src/main.cpp $(OBJS)
+	$(COMPILE) $(FLAGS) ./src/main.cpp $(OBJS) -o ./bin/rshell
 
-Cmd:
-	$(COMPILE) $(FLAGS) ./src/Cmd.cpp
+./bin/Cmd.o: ./src/Shell.h ./src/Cmd.h ./src/Cmd.cpp
+	$(COMPILE) $(FLAGS) -c ./src/Cmd.cpp -o ./bin/Cmd.o
 
-And:
-		$(COMPILE) $(FLAGS) ./src/And.cpp
+./bin/Connector.o: ./src/Shell.h ./src/Connector.h ./src/Connector.cpp
+	$(COMPILE) $(FLAGS) -c ./src/Connector.cpp -o ./bin/Connector.o
 
-Or:
-	$(COMPILE) $(FLAGS) ./src/Or.cpp
+./bin/Exit.o: ./src/Shell.h ./src/Exit.h ./src/Exit.cpp
+	$(COMPILE) $(FLAGS) -c ./src/Exit.cpp -o ./bin/Exit.o
 
-Semi:
-	$(COMPILE) $(FLAGS) ./src/Semi.cpp
+./bin/And.o: ./src/Connector.h ./src/And.h ./src/And.cpp
+		$(COMPILE) $(FLAGS) -c ./src/And.cpp -o ./bin/And.o
 
-Exit:
-	$(COMPILE) $(FLAGS) ./src/Exit.cpp
+./bin/Or.o: ./src/Connector.h ./src/Or.h ./src/Or.cpp
+	$(COMPILE) $(FLAGS) -c ./src/Or.cpp -o ./bin/Or.o
+
+./bin/Semi.o: ./src/Connector.h ./src/Semi.h ./src/Semi.cpp
+	$(COMPILE) $(FLAGS) -c ./src/Semi.cpp -o ./bin/Semi.o
 
 clean:
-	rm -rf ./bin
+	rm -rf ./bin/*
