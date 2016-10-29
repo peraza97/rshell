@@ -6,6 +6,8 @@
 #include <sys/types.h>
 #include <stdlib.h>
 #include <cstring>
+#include <stack>
+#include<queue>
 
 #include "Shell.h"
 #include "Cmd.h"
@@ -39,6 +41,14 @@ void info()
 }
 
 
+string infix_to_postfix(string s)
+{
+
+return s;
+}
+
+
+
 int main(int argc, char *argv[])
 {
   //variables
@@ -54,7 +64,12 @@ int main(int argc, char *argv[])
 
   //retrieve the input from the user
   getline(cin, input);
-  
+
+  if(!input.size())
+  {
+    continue;
+  }
+
   char * p = new char[input.size() - 1];
   //the input is now in a char array
   strcpy(p,input.c_str());
@@ -63,6 +78,7 @@ int main(int argc, char *argv[])
   Shell * cmd = new Cmd(p);
   cmd->execute();
   */
+
 
   }
 

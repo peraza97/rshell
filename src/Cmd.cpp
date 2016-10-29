@@ -41,8 +41,8 @@ bool Cmd::execute()
     if(execvp(list[0],list) == -1)
     {
       status = false;
-      perror("child process");
-      exit();
+      perror("execution error");
+      exit(1);
     }
 
   }
@@ -50,14 +50,15 @@ bool Cmd::execute()
   else if(pid > 0)
   {
     int st;
-    if(waitpid(pid, &st, 0) == -1)
+    if(waitpid(pid, &st,0) == -1)
     {
-        perror("wait failure");
+      perror("wait failure");
     }
     if(WEXITSTATUS(st) != 0)
     {
-	status = false;
+    status = false;
     }
+
   }
 
   return status;
