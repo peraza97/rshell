@@ -20,7 +20,7 @@ class Shell
 	Shell(){};
 	Shell(char* userInput): cmd(userInput){};
 	virtual bool execute() = 0;
-	//char** parse();
+	char** parse();
 };
 
 #endif

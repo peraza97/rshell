@@ -4,6 +4,7 @@
 bool Cmd::execute()
 {
   char * list[1000];
+  list = parse();
   bool status = true;
   //fork the process
   pid_t pid = fork();
