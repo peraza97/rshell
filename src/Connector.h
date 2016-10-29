@@ -7,7 +7,6 @@ using namespace std;
 class Connector : public Shell
 {
 protected:
-
 	Shell* left;
 	Shell* right;
 

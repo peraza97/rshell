@@ -1,3 +1,5 @@
+#ifndef OR_CPP
+#define OR_CPP
 #include "Or.h"
 
 bool Or:: execute()
@@ -10,7 +12,8 @@ bool Or:: execute()
       status = false;
     }
   }
-  
+
   return status;
 
 }
+#endif

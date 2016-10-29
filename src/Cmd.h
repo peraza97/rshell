@@ -8,13 +8,14 @@
 #include <stdlib.h>
 #include <cstring>
 #include "Shell.h"
+
 using namespace std;
 
 class Cmd : public Shell
 {
 	public:
-	Cmd() {};
-	Cmd(char* userInput): Shell(userInput){};
+	Cmd(): Shell(NULL) {};
+	Cmd(char* userInput): Shell(userInput) {};
 	bool execute();
 };
 

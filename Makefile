@@ -1,14 +1,30 @@
-CC=g++
-CC_FLAGS=-Wall -ansi
-EXEC=test.out
-SOURCES=$(wildcard *.cpp)
-OBJECTS=$(SOURCES:.cpp=.o)
 
-$(EXEC): $(OBJECTS)
-	$(CC) $(OBJECTS) -o $(EXEC)
+COMPILE = g++
+FLAGS =-Wall  -Werror  -ansi -pedantic
 
-%.o: %.cpp
-	$(CC) -c $(CC_FLAGS) $< -o $@
+OBJS = ./bin/Connector.o ./bin/Cmd.o ./bin/Exit.o ./bin/And.o ./bin/Or.o ./bin/Semi.o
+
+
+all: ./src/main.cpp $(OBJS)
+	$(COMPILE) $(FLAGS) ./src/main.cpp $(OBJS) -o ./bin/rshell
+
+./bin/Cmd.o: ./src/Shell.h ./src/Cmd.h ./src/Cmd.cpp
+	$(COMPILE) $(FLAGS) -c ./src/Cmd.cpp -o ./bin/Cmd.o
+
+./bin/Connector.o: ./src/Shell.h ./src/Connector.h ./src/Connector.cpp
+	$(COMPILE) $(FLAGS) -c ./src/Connector.cpp -o ./bin/Connector.o
+
+./bin/Exit.o: ./src/Shell.h ./src/Exit.h ./src/Exit.cpp
+	$(COMPILE) $(FLAGS) -c ./src/Exit.cpp -o ./bin/Exit.o
+
+./bin/And.o: ./src/Connector.h ./src/And.h ./src/And.cpp
+		$(COMPILE) $(FLAGS) -c ./src/And.cpp -o ./bin/And.o
+
+./bin/Or.o: ./src/Connector.h ./src/Or.h ./src/Or.cpp
+	$(COMPILE) $(FLAGS) -c ./src/Or.cpp -o ./bin/Or.o
+
+./bin/Semi.o: ./src/Connector.h ./src/Semi.h ./src/Semi.cpp
+	$(COMPILE) $(FLAGS) -c ./src/Semi.cpp -o ./bin/Semi.o
 
 clean:
-	rm -f $(EXEC) $(OBJECTS)
+	rm -rf ./bin/*
