@@ -332,6 +332,7 @@ int main(int argc, char *argv[])
     //retrieve the input from the user
     getline(cin, input);
 
+    //the user entered nothing
     if(!input.size())
     {
       continue;
