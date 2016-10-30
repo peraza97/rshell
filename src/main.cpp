@@ -234,17 +234,9 @@ Shell * createNodes(string s)
   //the input is now in a char array
   strcpy(p,s.c_str());
 
-  if(s == "||")
+  if(s == "exit")
   {
-    temp = new Or();
-  }
-  else if(s == "&&")
-  {
-    temp = new And();
-  }
-  else if(s == ";")
-  {
-    temp = new Semi();
+   temp = new Exit();
   }
   else
   {
@@ -255,8 +247,9 @@ Shell * createNodes(string s)
 
 }
 
-Shell * post_fix_tree(vector<string> v)
+Shell * compose_tree(vector<string> v)
 {
+//this stack will create our tree
 stack<Shell *> shell;
 unsigned index = 0;
 while(index < v.size() )
@@ -297,7 +290,6 @@ while(index < v.size() )
     index++;
 
   }
-
   return shell.top();
 }
 
@@ -309,30 +301,36 @@ int main(int argc, char *argv[])
   //variables
   string input;
   vector<string> comVector;
+  Shell * master;
 
   //infinite loop
   for(;;)
   {
-  comVector.clear();
-  //output the username and the host machine
-  info();
-  cout << "$ ";
+    comVector.clear();
+    //output the username and the host machine
+    info();
+    cout << "$ ";
 
 
-  //retrieve the input from the user
-  getline(cin, input);
+    //retrieve the input from the user
+    getline(cin, input);
 
-  if(!input.size())
-  {
-    continue;
-  }
-  SubStrBuilder(comVector,input);
+    if(!input.size())
+    {
+      continue;
+    }
+    if(input == "exit" || input == "Exit")
+    {
+      master = new Exit();
+    }
+    else
+    {
+      SubStrBuilder(comVector,input);
+      comVector = infix_to_postfix(comVector);
+      master =   compose_tree(comVector);
+    }
 
-  comVector = infix_to_postfix(comVector);
-
-  Shell * master =   post_fix_tree(comVector);
-
-  master->execute();
+    master->execute();
 
   }
 

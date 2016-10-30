@@ -1,5 +1,3 @@
-#ifndef AND_CPP
-#define AND_CPP
 #include "And.h"
 
 bool And::execute()
@@ -11,4 +9,3 @@ bool And::execute()
 	}
 	return false;
 }
-#endif

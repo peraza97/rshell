@@ -1,5 +1,3 @@
-#ifndef CMD_CPP
-#define CMD_CPP
 #include "Cmd.h"
 
 void parseData(char * cmd, char * tok [])
@@ -62,4 +60,3 @@ bool Cmd::execute()
 
   return status;
 }
-#endif
