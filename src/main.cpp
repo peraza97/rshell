@@ -84,32 +84,29 @@ vector<string> infix_to_postfix(vector<string> v)
          }
          else
          {
-                while(!s.empty() && priority(c) <= priority(s.top()))
-                {
-                    if(s.top() == "(")
-                    {
-                        break;
-                    }
-
-                    s.pop();
-                }
-                s.push(c);
-            }
-          }
-
-          else
-          {
-            result.push_back(c);
-          }
-        }
-
-        while(!s.empty())
-        {
-            result.push_back(s.top());
-            s.pop();
-        }
-
-          return result;
+           while(!s.empty() && priority(c) <= priority(s.top()))
+           {
+             if(s.top() == "(")
+             {
+               break;
+             }
+             result.push_back(s.top());
+             s.pop();
+           }
+           s.push(c);
+         }
+       }
+       else
+       {
+         result.push_back(c);
+       }
+     }
+     while(!s.empty())
+     {
+       result.push_back(s.top());
+       s.pop();
+     }
+     return result;
 }
 
 
