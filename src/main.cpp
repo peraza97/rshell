@@ -255,6 +255,55 @@ Shell * createNodes(string s)
 
 }
 
+Shell * post_fix_tree(vector<string> v)
+{
+stack<Shell *> shell;
+unsigned index = 0;
+while(index < v.size() )
+  {
+    if(v.at(index) == "||")
+    {
+      Shell * r = shell.top();
+      shell.pop();
+      Shell * l = shell.top();
+      shell.pop();
+      Shell * temp = new Or(l,r);
+      shell.push(temp);
+    }
+    else if( v.at(index) == "&&")
+    {
+      Shell * r = shell.top();
+      shell.pop();
+      Shell * l = shell.top();
+      shell.pop();
+      Shell * temp = new And(l,r);
+      shell.push(temp);
+    }
+    else if( v.at(index) == ";")
+    {
+      Shell * r = shell.top();
+      shell.pop();
+      Shell * l = shell.top();
+      shell.pop();
+      Shell * temp = new Semi(l,r);
+      shell.push(temp);
+    }
+    else
+    {
+      Shell * temp = createNodes(v.at(index));
+      shell.push(temp);
+    }
+
+    index++;
+
+  }
+
+  return shell.top();
+}
+
+
+
+
 int main(int argc, char *argv[])
 {
   //variables
@@ -278,13 +327,12 @@ int main(int argc, char *argv[])
     continue;
   }
   SubStrBuilder(comVector,input);
+
   comVector = infix_to_postfix(comVector);
 
+  Shell * master =   post_fix_tree(comVector);
 
-  for(unsigned i = 0; i < comVector.size(); i++)
-  {
-     cout << comVector[i] << endl;
-  }
+  master->execute();
 
   }
 

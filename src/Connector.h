@@ -13,14 +13,6 @@ protected:
 	public:
 	Connector(){};
 	Connector(Shell * l, Shell * r):left(l), right(r){};
-	void setLeft(Shell* a)
-	{
-	  left = a;
-	}
-	void setRight(Shell* a)
-	{
-	  right = a;
-	}
 	virtual bool execute() = 0;
 };
 
