@@ -41,11 +41,77 @@ void info()
 }
 
 
-string infix_to_postfix(string s)
-{
 
-return s;
+int priority(string op)
+  {
+      int priority = 0;
+      if(op == "("){
+        priority =  3;
+      }
+      else if(op == "&&" || op == "||"){
+          priority = 2;
+      }
+      else if(op == ";"){
+          priority = 1;
+      }
+      return priority;
+
+  }
+
+vector<string> infix_to_postfix(vector<string> v)
+{
+  stack<string> s;
+  vector<string> result;
+  string c;
+  for(unsigned i = 0; i< v.size();++i)
+  {
+       c = v.at(i);
+       //c is a Connector
+       if(c == "||" || c == "&&" || c == ";" || c == "(" || c == ")")
+       {
+         if( c == "(")
+         {
+             s.push(c);
+         }
+         else if(c == ")")
+         {
+                while(s.top() != "(")
+                {
+                    result.push_back(s.top());
+                    s.pop();
+                }
+                s.pop();
+         }
+         else
+         {
+                while(!s.empty() && priority(c) <= priority(s.top()))
+                {
+                    if(s.top() == "(")
+                    {
+                        break;
+                    }
+
+                    s.pop();
+                }
+                s.push(c);
+            }
+          }
+
+          else
+          {
+            result.push_back(c);
+          }
+        }
+
+        while(!s.empty())
+        {
+            result.push_back(s.top());
+            s.pop();
+        }
+
+          return result;
 }
+
 
 void SubStrBuilder(vector<string> &cmdVector,string a)
 {
@@ -185,6 +251,15 @@ int main(int argc, char *argv[])
   {
      cout << comVector[i] << endl;
   }
+
+  cout << endl;
+  comVector = infix_to_postfix(comVector);
+
+  for(unsigned i = 0; i < comVector.size(); i++)
+  {
+     cout << comVector[i] << endl;
+  }
+
   /*
   char * p = new char[input.size() - 1];
   //the input is now in a char array
