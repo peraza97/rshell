@@ -304,21 +304,25 @@ int main(int argc, char *argv[])
     //retrieve the input from the user
     getline(cin, input);
 
+    //the user entered nothing
     if(!input.size())
     {
-      continue;
+      continue; 
     }
+    //they just typed in exit
     if(input == "exit" || input == "Exit")
     {
       master = new Exit();
     }
+
+    //there are combinations of commmands to run
     else
     {
       SubStrBuilder(comVector,input);
       comVector = infix_to_postfix(comVector);
       master =   compose_tree(comVector);
     }
-
+    //execute the tree
     master->execute();
 
   }

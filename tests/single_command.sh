@@ -1,4 +1,3 @@
 #!/bin/sh
-#single command test
 
-../bin/rshell < single_test
+../bin/rshell echo hello world
