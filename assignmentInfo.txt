@@ -1,0 +1,5 @@
+name1=Christopher Nguyen
+ucrnetid1=cnguy114
+name2=Omar Peraza
+ucrnetid2= opera002
+repourl= https://github.com/peraza97/rshell.git

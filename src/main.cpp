@@ -7,6 +7,8 @@
 #include <stdlib.h>
 #include <cstring>
 #include <stack>
+#include <sstream>
+#include <string>
 #include<queue>
 
 #include "Shell.h"
@@ -107,55 +109,62 @@ vector<string> infix_to_postfix(vector<string> v)
         result.push_back(s.top());
         s.pop();
     }
-
   return result;
 
 }
 
 void SubStrBuilder(vector<string> &cmdVector,string a)
 {
+  //This function parses up the user input into substrings of cmds, exits and connectors
+  //It also handles how to build the substrings in case of quotation marks and # comments
 	string::iterator it = a.begin();
 	string newStr;
-  bool quote = false;
+  bool quote = false;                     //used to keep track if the current input is part of a quote
 
-	while (it != a.end())
+	while (it != a.end())                   //iterates through the string
   {
-    if(quote)
+    if(quote)                     //if currently in quote
     {
-      if(*it == '\"')
+      if(*it != '\"')             //checks if quote ends
+      {
+        newStr += *it;
+      }
+      else
       {
         quote = false;
       }
-      newStr += *it;
-      it++;
+        it++;
     }
     else
     {
-      if(*it == ';')
+      if(*it == '(' || *it == ')' || *it == ';')                      //Semi colon and parenthesis connector check
       {
         if(newStr != "" )
         {
           cmdVector.push_back(newStr);
         }
-        cmdVector.push_back(";");
+
+        char def = *it;
+        string b = "";
+        b+=def;
+        cmdVector.push_back(b);
         if((it+1) != a.end())
         {
           it+=1;
         }
-
         else
         {
           it = a.end();
         }
         newStr = "";
       }
-      else if(*it == ' ' && newStr == "")
+
+      else if(*it == ' ' && newStr == "") //Ignore empty strings and whitespaces
       {
         it++;
         continue;
-
       }
-      else if(*it == '|')
+      else if(*it == '|')                 //Or connector check
       {
         if(*(it+1) == '|')
         {
@@ -177,7 +186,7 @@ void SubStrBuilder(vector<string> &cmdVector,string a)
         }
         else{it++;}
       }
-      else if(*it == '&')
+      else if(*it == '&')                 //And Connector check
       {
         if(*(it+1) == '&')
         {
@@ -200,23 +209,26 @@ void SubStrBuilder(vector<string> &cmdVector,string a)
         //newStr += *it;
         else{it++;}
       }
-      else if(*it == '#')
+      else if(*it == '#')                 //checks if there is a comment in the input. If so, the rest of the input is ignored
       {
         cmdVector.push_back(newStr);
         it = a.end();
       }
       else
       {
-        if(*it == '\"')
+        if(*it == '\"')                   //checks for starting quotation
         {
           quote = true;
         }
-        newStr += *it;
+        else
+        {
+          newStr += *it;
+        }
         it++;
       }
     }
   }
-  if(newStr != "")
+  if(newStr != "")                        //this stops any empty strings from being added/categorized
   {
     cmdVector.push_back(newStr);
   }
@@ -251,30 +263,39 @@ Shell * compose_tree(vector<string> v)
   {
     if(v.at(index) == "||")
     {
-      Shell * r = shell.top();
-      shell.pop();
-      Shell * l = shell.top();
-      shell.pop();
-      Shell * temp = new Or(l,r);
-      shell.push(temp);
+      if(shell.size()>1)
+      {
+        Shell * r = shell.top();
+        shell.pop();
+        Shell * l = shell.top();
+        shell.pop();
+        Shell * temp = new Or(l,r);
+        shell.push(temp);
+      }
     }
     else if( v.at(index) == "&&")
     {
-      Shell * r = shell.top();
-      shell.pop();
-      Shell * l = shell.top();
-      shell.pop();
-      Shell * temp = new And(l,r);
-      shell.push(temp);
+      if(shell.size()>1)
+      {
+        Shell * r = shell.top();
+        shell.pop();
+        Shell * l = shell.top();
+        shell.pop();
+        Shell * temp = new And(l,r);
+        shell.push(temp);
+      }
     }
     else if( v.at(index) == ";")
     {
-      Shell * r = shell.top();
-      shell.pop();
-      Shell * l = shell.top();
-      shell.pop();
-      Shell * temp = new Semi(l,r);
-      shell.push(temp);
+      if(shell.size()>1)
+      {
+        Shell * r = shell.top();
+        shell.pop();
+        Shell * l = shell.top();
+        shell.pop();
+        Shell * temp = new Semi(l,r);
+        shell.push(temp);
+      }
     }
     else
     {
@@ -283,7 +304,14 @@ Shell * compose_tree(vector<string> v)
     }
     index++;
   }
+  if(shell.size())
+  {
   return shell.top();
+  }
+  else
+  {
+    return NULL;
+  }
 }
 
 int main(int argc, char *argv[])
@@ -308,19 +336,28 @@ int main(int argc, char *argv[])
     {
       continue;
     }
+
     if(input == "exit" || input == "Exit")
     {
       master = new Exit();
+      master->execute();
     }
+
     else
     {
+
       SubStrBuilder(comVector,input);
+
       comVector = infix_to_postfix(comVector);
-      master =   compose_tree(comVector);
-    }
-
-    master->execute();
-
+      if(!comVector.empty())
+      {
+        master =  compose_tree(comVector);
+        if(master != NULL)
+        {
+          master->execute();
+        }
+      }
+     }
   }
-return 0;
+  return 0;
 }
