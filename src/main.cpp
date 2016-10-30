@@ -317,27 +317,41 @@ Shell * compose_tree(vector<string> v)
 int main(int argc, char *argv[])
 {
   //variables
-  string input;
+  string input ="";
   vector<string> comVector;
   Shell * master;
 
   //infinite loop
   for(;;)
   {
-    comVector.clear();
     //output the username and the host machine
     info();
     cout << "$ ";
 
+    if(argc > 1)
+    {
+      for(int i = 1; i < argc; ++i)
+      {
+        cout << argv[i] << " ";
+        string space = " ";
+        input = input +  argv[i] + space ;
+      }
+      cout << endl;
+    }
+
     //retrieve the input from the user
-    getline(cin, input);
+    if(input.size() == 0)
+    {
+      getline(cin, input);
+    }
+
 
     //the user entered nothing
     if(!input.size())
     {
       continue;
     }
-
+    //JUST Exit
     if(input == "exit" || input == "Exit")
     {
       master = new Exit();
@@ -346,7 +360,6 @@ int main(int argc, char *argv[])
 
     else
     {
-
       SubStrBuilder(comVector,input);
 
       comVector = infix_to_postfix(comVector);
@@ -359,6 +372,9 @@ int main(int argc, char *argv[])
         }
       }
      }
+       comVector.clear();
+       input = "";
+       argc = 0;
   }
   return 0;
 }
