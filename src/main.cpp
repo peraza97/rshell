@@ -86,8 +86,9 @@ void SubStrBuilder(vector<string> &cmdVector,string a)
       }
       else if(*it == ' ' && newStr == "")
       {
-        continue;
         it++;
+        continue;
+
       }
       else if(*it == '|')
       {
