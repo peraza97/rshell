@@ -40,23 +40,20 @@ void info()
 
 }
 
-
-
 int priority(string op)
-  {
-      int priority = 0;
-      if(op == "("){
-        priority =  3;
-      }
-      else if(op == "&&" || op == "||"){
-          priority = 2;
-      }
-      else if(op == ";"){
-          priority = 1;
-      }
-      return priority;
-
+{
+  int priority = 0;
+  if(op == "("){
+    priority =  3;
   }
+  else if(op == "&&" || op == "||"){
+      priority = 2;
+  }
+  else if(op == ";"){
+      priority = 1;
+  }
+  return priority;
+}
 
 vector<string> infix_to_postfix(vector<string> v)
 {
@@ -114,7 +111,6 @@ vector<string> infix_to_postfix(vector<string> v)
   return result;
 
 }
-
 
 void SubStrBuilder(vector<string> &cmdVector,string a)
 {
@@ -208,7 +204,6 @@ void SubStrBuilder(vector<string> &cmdVector,string a)
       {
         cmdVector.push_back(newStr);
         it = a.end();
-        it += 234;
       }
       else
       {
@@ -249,10 +244,10 @@ Shell * createNodes(string s)
 
 Shell * compose_tree(vector<string> v)
 {
-//this stack will create our tree
-stack<Shell *> shell;
-unsigned index = 0;
-while(index < v.size() )
+  //this stack will create our tree
+  stack<Shell *> shell;
+  unsigned index = 0;
+  while(index < v.size() )
   {
     if(v.at(index) == "||")
     {
@@ -286,15 +281,10 @@ while(index < v.size() )
       Shell * temp = createNodes(v.at(index));
       shell.push(temp);
     }
-
     index++;
-
   }
   return shell.top();
 }
-
-
-
 
 int main(int argc, char *argv[])
 {
@@ -310,7 +300,6 @@ int main(int argc, char *argv[])
     //output the username and the host machine
     info();
     cout << "$ ";
-
 
     //retrieve the input from the user
     getline(cin, input);
@@ -333,7 +322,5 @@ int main(int argc, char *argv[])
     master->execute();
 
   }
-
-
 return 0;
 }
