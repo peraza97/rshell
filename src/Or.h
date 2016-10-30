@@ -5,7 +5,7 @@
 class Or : public Connector
 {
   public:
-    Or(){};
+    Or(): Connector(){};
     Or(Shell * l, Shell * r): Connector(l,r){};
     bool execute();
 

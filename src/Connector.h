@@ -11,7 +11,7 @@ protected:
 	Shell* right;
 
 	public:
-	Connector(){};
+	Connector(): left(NULL), right(NULL) {};
 	Connector(Shell * l, Shell * r):left(l), right(r){};
 	virtual bool execute() = 0;
 };

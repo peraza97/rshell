@@ -8,7 +8,6 @@ class Exit : public Shell
 {
 	public:
 	Exit(){};
-	Exit(char * userInput): Shell(userInput){};
 	bool execute();
 };
 

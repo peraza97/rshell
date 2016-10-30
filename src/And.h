@@ -5,7 +5,7 @@
 class And : public Connector
 {
 	public:
-	And(){};
+	And(): Connector() {};
 	And(Shell * l, Shell * r): Connector(l,r){};
 	bool execute();
 

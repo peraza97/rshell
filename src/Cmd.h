@@ -13,9 +13,11 @@ using namespace std;
 
 class Cmd : public Shell
 {
+	private:
+	char * cmd;
 	public:
-	Cmd(): Shell(NULL) {};
-	Cmd(char* userInput): Shell(userInput) {};
+	Cmd(): cmd(NULL) {};
+	Cmd(char* userInput): cmd(userInput) {};
 	bool execute();
 };
 

@@ -5,7 +5,7 @@
 class Semi : public Connector
 {
   public:
-  Semi(){};
+  Semi(): Connector() {};
   Semi(Shell * l, Shell * r): Connector(l,r){};
   bool execute();
 
