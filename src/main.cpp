@@ -69,47 +69,49 @@ vector<string> infix_to_postfix(vector<string> v)
        //c is a Connector
        if(c == "||" || c == "&&" || c == ";" || c == "(" || c == ")")
        {
-         if( c == "(")
-         {
-             s.push(c);
-         }
-         else if(c == ")")
-         {
+           if( c == "(")
+           {
+               s.push(c);
+           }
+           else if(c == ")")
+           {
                 while(s.top() != "(")
                 {
                     result.push_back(s.top());
                     s.pop();
                 }
                 s.pop();
-         }
-         else
-         {
-                while(!s.empty() && priority(c) <= priority(s.top()))
-                {
-                    if(s.top() == "(")
+           }
+           else
+           {
+                    while(!s.empty() && priority(c) <= priority(s.top()))
                     {
-                        break;
+                        if(s.top() == "(")
+                        {
+                            break;
+                        }
+                        result.push_back(s.top());
+                        s.pop();
                     }
-
-                    s.pop();
-                }
-                s.push(c);
+                  s.push(c);
             }
           }
-
-          else
-          {
-            result.push_back(c);
-          }
-        }
-
-        while(!s.empty())
+        //its a command
+        else
         {
-            result.push_back(s.top());
-            s.pop();
+          result.push_back(c);
         }
+    }
 
-          return result;
+
+
+    while(!s.empty())
+    {
+        result.push_back(s.top());
+        s.pop();
+    }
+
+  return result;
 }
 
 
@@ -224,6 +226,34 @@ void SubStrBuilder(vector<string> &cmdVector,string a)
   }
 }
 
+Shell * createNodes(string s)
+{
+  Shell * temp;
+  char * p = new char[s.size() - 1];
+  //the input is now in a char array
+  strcpy(p,s.c_str());
+
+  if(s == "||")
+  {
+    temp = new Or();
+  }
+  else if(s == "&&")
+  {
+    temp = new And();
+  }
+  else if(s == ";")
+  {
+    temp = new Semi();
+  }
+  else
+  {
+    temp = new Cmd(p);
+  }
+
+  return temp;
+
+}
+
 int main(int argc, char *argv[])
 {
   //variables
@@ -247,28 +277,14 @@ int main(int argc, char *argv[])
     continue;
   }
   SubStrBuilder(comVector,input);
-  for(unsigned i = 0; i < comVector.size(); i++)
-  {
-     cout << comVector[i] << endl;
-  }
-
-  cout << endl;
   comVector = infix_to_postfix(comVector);
 
+
   for(unsigned i = 0; i < comVector.size(); i++)
   {
      cout << comVector[i] << endl;
   }
 
-  /*
-  char * p = new char[input.size() - 1];
-  //the input is now in a char array
-  strcpy(p,input.c_str());
-
-
-  Shell * cmd = new Cmd(p);
-  cmd->execute();
-  */
   }
 
 
