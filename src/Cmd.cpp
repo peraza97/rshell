@@ -15,13 +15,12 @@ tok[i] = part;
     part = strtok(NULL, " ");
     tok[++i] = part;
   }
-  tok[i]= NULL;
+  //tok[i]= NULL;
 }
 
 bool Cmd::execute()
 {
   char * list[1000];
-  list = parse();
   bool status = true;
 
   parseData(cmd,list);

@@ -47,20 +47,130 @@ string infix_to_postfix(string s)
 return s;
 }
 
+void SubStrBuilder(vector<string> &cmdVector,string a)
+{
+	string::iterator it = a.begin();
+	string newStr;
+  bool quote = false;
 
+	while (it != a.end())
+  {
+    if(quote)
+    {
+      if(*it == '\"')
+      {
+        quote = false;
+      }
+      newStr += *it;
+      it++;
+    }
+    else
+    {
+      if(*it == ';')
+      {
+        if(newStr != "" )
+        {
+          cmdVector.push_back(newStr);
+        }
+        cmdVector.push_back(";");
+        if((it+1) != a.end())
+        {
+          it+=1;
+        }
+
+        else
+        {
+          it = a.end();
+        }
+        newStr = "";
+      }
+      else if(*it == ' ' && newStr == "")
+      {
+        continue;
+        it++;
+      }
+      else if(*it == '|')
+      {
+        if(*(it+1) == '|')
+        {
+          if(newStr != "" )
+          {
+            cmdVector.push_back(newStr);
+          }
+          string temp = "||";
+          cmdVector.push_back(temp);
+          if(it+2 != a.end())
+          {
+            it += 2;
+          }
+          else
+          {
+            it = a.end();
+          }
+          newStr = "";
+        }
+        else{it++;}
+      }
+      else if(*it == '&')
+      {
+        if(*(it+1) == '&')
+        {
+          if(newStr != "" )
+          {
+            cmdVector.push_back(newStr);
+          }
+          string temp = "&&";
+          cmdVector.push_back(temp);
+          if(it+2 != a.end())
+          {
+            it += 2;
+          }
+          else
+          {
+            it = a.end();
+          }
+          newStr = "";
+        }
+        //newStr += *it;
+        else{it++;}
+      }
+      else if(*it == '#')
+      {
+        cmdVector.push_back(newStr);
+        it = a.end();
+        it += 234;
+      }
+      else
+      {
+        if(*it == '\"')
+        {
+          quote = true;
+        }
+        newStr += *it;
+        it++;
+      }
+    }
+  }
+  if(newStr != "")
+  {
+    cmdVector.push_back(newStr);
+  }
+}
 
 int main(int argc, char *argv[])
 {
   //variables
   string input;
-
+  vector<string> comVector;
 
   //infinite loop
   for(;;)
   {
+  comVector.clear();
   //output the username and the host machine
   info();
   cout << "$ ";
+
 
   //retrieve the input from the user
   getline(cin, input);
@@ -69,17 +179,20 @@ int main(int argc, char *argv[])
   {
     continue;
   }
-
+  SubStrBuilder(comVector,input);
+  for(unsigned i = 0; i < comVector.size(); i++)
+  {
+     cout << comVector[i] << endl;
+  }
+  /*
   char * p = new char[input.size() - 1];
   //the input is now in a char array
   strcpy(p,input.c_str());
 
-  /*
+
   Shell * cmd = new Cmd(p);
   cmd->execute();
   */
-
-
   }
 
 

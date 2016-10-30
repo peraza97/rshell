@@ -2,13 +2,14 @@
 COMPILE = g++
 FLAGS =-Wall  -Werror  -ansi -pedantic
 
-OBJS = ./bin/Connector.o ./bin/Cmd.o ./bin/Exit.o ./bin/And.o ./bin/Or.o ./bin/Semi.o
+OBJS = ./bin/Cmd.o ./bin/Connector.o ./bin/Exit.o ./bin/And.o ./bin/Or.o ./bin/Semi.o
 
 
 all: ./src/main.cpp $(OBJS)
 	$(COMPILE) $(FLAGS) ./src/main.cpp $(OBJS) -o ./bin/rshell
 
 ./bin/Cmd.o: ./src/Shell.h ./src/Cmd.h ./src/Cmd.cpp
+	mkdir -p ./bin
 	$(COMPILE) $(FLAGS) -c ./src/Cmd.cpp -o ./bin/Cmd.o
 
 ./bin/Connector.o: ./src/Shell.h ./src/Connector.h ./src/Connector.cpp
@@ -27,4 +28,4 @@ all: ./src/main.cpp $(OBJS)
 	$(COMPILE) $(FLAGS) -c ./src/Semi.cpp -o ./bin/Semi.o
 
 clean:
-	rm -rf ./bin/*
+	rm -rf ./bin/
