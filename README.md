@@ -1,8 +1,12 @@
 #INSTALLATION
 git clone https://github.com/peraza97/rshell.git
+
 cd rshell
+
 git checkout hw2
+
 make
+
 ./bin/rshell
 
 # Introduction
