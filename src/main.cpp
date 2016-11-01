@@ -334,11 +334,11 @@ int main(int argc, char *argv[])
   string input ="";
   vector<string> comVector;
   Shell * master = NULL;
+  info();
   //infinite loop
-  do
+  while(getline(cin, input))
   {
     //output the username and the host machine
-    info();
     //this seperates the command into a vector
     SubStrBuilder(comVector,input);
     //turns the vector into postfix notation
@@ -359,10 +359,9 @@ int main(int argc, char *argv[])
 
       //clear the variables for the next iteration
    comVector.clear();
-   input = "";
-
-
- }while(getline(cin, input));
+   input.clear();
+    info();
+ }
 
   return 0;
 }

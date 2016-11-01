@@ -1,0 +1,5 @@
+#hello world
+ls -a # echo
+ls -a ; #echo
+git status # gasgs
+#brian crites

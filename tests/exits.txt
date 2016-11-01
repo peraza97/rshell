@@ -1,0 +1,5 @@
+exit
+ls ; exit
+ls && exit
+ls || exit
+git status ; exit
