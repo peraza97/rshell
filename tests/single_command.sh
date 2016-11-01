@@ -1,4 +1,3 @@
-#!/bin/bash
-
+#!/bin/sh
 #/path/rshell "user input"
-../bin/rshell "ls && echo git ; git status"
+../bin/rshell < single.txt 

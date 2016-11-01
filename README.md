@@ -1,7 +1,7 @@
-#INSTALLATION
+# INSTALLATION
 git clone https://github.com/peraza97/rshell.git
 
-cd rshell
+ cd rshell
 
 git checkout hw2
 

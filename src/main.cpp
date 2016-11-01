@@ -8,9 +8,9 @@
 #include <cstring>
 #include <stack>
 #include <sstream>
+#include <fstream>
 #include <string>
 #include<queue>
-
 #include "Shell.h"
 #include "Cmd.h"
 #include "Exit.h"
@@ -39,19 +39,31 @@ void info()
   host[499] = '\0';
   gethostname(host, 499);
   printf("@%s", host);
-
+  cout << "$ ";
 }
+
+void print_vec(vector<string> v)
+{
+  for(unsigned i = 0; i < v.size(); ++i)
+  {
+    cout << " |" << v.at(i) << "| ";
+  }
+}
+
 
 int priority(string op)
 {
   int priority = 0;
-  if(op == "("){
+  if(op == "(")
+  {
     priority =  3;
   }
-  else if(op == "&&" || op == "||"){
+  else if(op == "&&" || op == "||")
+  {
       priority = 2;
   }
-  else if(op == ";"){
+  else if(op == ";")
+  {
       priority = 1;
   }
   return priority;
@@ -211,8 +223,9 @@ void SubStrBuilder(vector<string> &cmdVector,string a)
       }
       else if(*it == '#')                 //checks if there is a comment in the input. If so, the rest of the input is ignored
       {
-        cmdVector.push_back(newStr);
-        it = a.end();
+          it = a.end();
+
+
       }
       else
       {
@@ -314,67 +327,42 @@ Shell * compose_tree(vector<string> v)
   }
 }
 
+
 int main(int argc, char *argv[])
 {
   //variables
   string input ="";
   vector<string> comVector;
-  Shell * master;
-
+  Shell * master = NULL;
   //infinite loop
-  for(;;)
+  do
   {
     //output the username and the host machine
     info();
-    cout << "$ ";
+    //this seperates the command into a vector
+    SubStrBuilder(comVector,input);
+    //turns the vector into postfix notation
+    comVector = infix_to_postfix(comVector);
 
-    if(argc > 1)
+    //if the vector has elements in it this means at least 1 command entered
+    if(!comVector.empty())
     {
-      for(int i = 1; i < argc; ++i)
-      {
-        cout << argv[i] << " ";
-        string space = " ";
-        input = input +  argv[i] + space ;
-      }
-      cout << endl;
-    }
-
-    //retrieve the input from the user
-    if(input.size() == 0)
-    {
-      getline(cin, input);
-    }
-
-
-    //the user entered nothing
-    if(!input.size())
-    {
-      continue;
-    }
-    //JUST Exit
-    if(input == "exit" || input == "Exit")
-    {
-      master = new Exit();
-      master->execute();
-    }
-
-    else
-    {
-      SubStrBuilder(comVector,input);
-
-      comVector = infix_to_postfix(comVector);
-      if(!comVector.empty())
-      {
+        //return the top node
         master =  compose_tree(comVector);
+        //if there is a valid Shell * to execute
         if(master != NULL)
         {
           master->execute();
         }
-      }
-     }
-       comVector.clear();
-       input = "";
-       argc = 0;
-  }
+        //if there wasnt that means there wasnt a valid command entered
+    }
+
+      //clear the variables for the next iteration
+   comVector.clear();
+   input = "";
+
+
+ }while(getline(cin, input));
+
   return 0;
 }
