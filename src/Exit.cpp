@@ -5,6 +5,6 @@ using namespace std;
 
 bool Exit::execute()
 {
-cout << "logout" << endl;
+  cout << "logout" << endl;
 exit(0);
 }

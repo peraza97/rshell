@@ -1,3 +1,4 @@
 echo Hello world
 ls -a
 ls -l
+exit
