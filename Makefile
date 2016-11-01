@@ -6,7 +6,7 @@ OBJS = ./bin/Cmd.o ./bin/Connector.o ./bin/Exit.o ./bin/And.o ./bin/Or.o ./bin/S
 
 
 all: ./src/main.cpp $(OBJS)
-	$(COMPILE) $(FLAGS) ./src/main.cpp $(OBJS) -o ./bin/rshell
+	$(COMPILE) $(FLAGS) -g ./src/main.cpp $(OBJS) -o ./bin/rshell
 
 ./bin/Cmd.o: ./src/Shell.h ./src/Cmd.h ./src/Cmd.cpp
 	mkdir -p ./bin

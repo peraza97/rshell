@@ -51,10 +51,6 @@ bool Cmd::execute()
     {
       perror("wait failure");
     }
-    if(WEXITSTATUS(st) != 0)
-    {
-    status = false;
-    }
 
   }
 

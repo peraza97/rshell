@@ -331,16 +331,16 @@ Shell * compose_tree(vector<string> v)
 int main(int argc, char *argv[])
 {
   //variables
-  string input ="";
+  //string input ="";
   vector<string> comVector;
   //the shell pointer that will point to the top of the tree
   Shell * master = NULL;
   //infinite loop
-  for(;;)
+  info();
+  for(string input = ""; getline(cin,input);)
   {
     info();
     //output the username and the host machine
-    getline(cin,input);
     //this seperates the command into a vector
     SubStrBuilder(comVector,input);
     //turns the vector into postfix notation
@@ -360,8 +360,8 @@ int main(int argc, char *argv[])
     }
 
       //clear the variables for the next iteration
-   comVector.clear();
-   input.clear();
+  comVector.clear();
+  
  }
 
   return 0;
