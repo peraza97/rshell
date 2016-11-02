@@ -13,7 +13,13 @@ tok[i] = part;
     part = strtok(NULL, " ");
     tok[++i] = part;
   }
-  //tok[i]= NULL;
+  //tok[i]=NULL;
+}
+
+Cmd::~Cmd()
+{
+  delete[] cmd;
+  cmd = NULL;
 }
 
 bool Cmd::execute()
@@ -37,8 +43,9 @@ bool Cmd::execute()
   {
     if(execvp(list[0],list) == -1)
     {
-      status = false;
-      perror("execution error");
+      string error = "rshell: ";
+      error += (string)list[0];
+      perror(error.c_str());
       exit(1);
     }
 
@@ -51,6 +58,10 @@ bool Cmd::execute()
     {
       perror("wait failure");
     }
+    if(WEXITSTATUS(st) != 0)
+   {
+   status = false;
+   }
 
   }
 

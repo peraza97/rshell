@@ -1,3 +1,4 @@
-echo Hello world
-ls -a
-ls -l
+echo -e "Hello World" && echo Hello World
+echo -e "ls-a" && ls -a
+echo -e "ls-l" && ls -l
+echo -e "exit"
