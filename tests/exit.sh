@@ -1,3 +1,3 @@
 #!/bin/sh
-#/path/rshell "user input"
-../bin/rshell < exit
+#Tests exit commands from exits.txt
+../bin/rshell < exits.txt

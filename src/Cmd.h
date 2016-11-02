@@ -18,6 +18,10 @@ class Cmd : public Shell
 	public:
 	Cmd(): cmd(NULL) {};
 	Cmd(char* userInput): cmd(userInput) {};
+	~Cmd()
+	{
+		delete this;
+	}
 	bool execute();
 };
 

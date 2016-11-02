@@ -1,5 +1,6 @@
-exit
-ls ; exit
-ls && exit
-ls || exit
-git status ; exit
+echo "ls || exit" && (ls || exit)
+echo "git status && exit" && (git status && exit)
+#exit
+#ls ; exit
+#ls && exit
+#git status ; exit
