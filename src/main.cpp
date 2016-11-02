@@ -343,14 +343,19 @@ int main(int argc, char *argv[])
   vector<string> pvec;
   Shell * master = NULL;
   //infinite loop
-  info();
-  for(input="";getline(cin,input);)
+  for(;;)
   {
-    //output the username and the host machine
-    SubStrBuilder(pvec, input);
-    master = compose_tree(pvec);
-    master->execute();
     info();
+    if(!getline(cin,input))
+    {
+      break;
+    }
+    //parse our input
+    SubStrBuilder(pvec, input);
+    //compose the tree
+    master = compose_tree(pvec);
+    //exectute the tree
+    master->execute();
  }
 
   return 0;
