@@ -2,12 +2,11 @@
 
 void parseData(char * cmd, char * tok [])
 {
-
-//char * tok[1000];
-//char array for tokenizing
-char *part = strtok(cmd, " ");
-int i = 0;
-tok[i] = part;
+  //char * tok[1000];
+  //char array for tokenizing
+  char *part = strtok(cmd, " ");
+  int i = 0;
+  tok[i] = part;
   while(part != NULL)
   {
     part = strtok(NULL, " ");
