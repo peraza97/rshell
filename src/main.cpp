@@ -135,27 +135,27 @@ void SubStrBuilder(vector<string> &cmdVector,string a)
     return;
   }
 
-	string::iterator it = a.begin();
-	string newStr;
-  bool quote = false;                     //used to keep track if the current input is part of a quote
+	string::iterator it = a.begin();                                              //string iterator
+	string newStr;                                                                //string to be build and used as token
+  bool quote = false;                                                           //used to keep track if the current input is part of a quote
 
-	while (it != a.end())                   //iterates through the string
+	while (it != a.end())                                                         //iterates through the string
   {
-    if(quote)                     //if currently in quote
+    if(quote)                                                                   //if currently in quote
     {
-      if(*it != '\"')             //checks if quote ends
+      if(*it != '\"')                                                           //checks if quote ends
       {
         newStr += *it;
       }
       else
       {
-        quote = false;
+        quote = false;                                                          //exits quote
       }
         it++;
     }
     else
     {
-      if(*it == '(' || *it == ')' || *it == ';')                      //Semi colon and parenthesis connector check
+      if(*it == '(' || *it == ')' || *it == ';')                                //Semi colon and parenthesis connector check
       {
         if(newStr != "" )
         {
@@ -166,7 +166,7 @@ void SubStrBuilder(vector<string> &cmdVector,string a)
         string b = "";
         b+=def;
         cmdVector.push_back(b);
-        if((it+1) != a.end())
+        if((it+1) != a.end())                                                   //checks if iterator needs to keep going
         {
           it+=1;
         }
@@ -177,12 +177,12 @@ void SubStrBuilder(vector<string> &cmdVector,string a)
         newStr = "";
       }
 
-      else if(*it == ' ' && newStr == "") //Ignore empty strings and whitespaces
+      else if(*it == ' ' && newStr == "")                                       //Ignore empty strings and whitespaces
       {
         it++;
         continue;
       }
-      else if(*it == '|')                 //Or connector check
+      else if(*it == '|')                                                       //Or connector check
       {
         if(*(it+1) == '|')
         {
@@ -224,18 +224,15 @@ void SubStrBuilder(vector<string> &cmdVector,string a)
           }
           newStr = "";
         }
-        //newStr += *it;
         else{it++;}
       }
-      else if(*it == '#')                 //checks if there is a comment in the input. If so, the rest of the input is ignored
+      else if(*it == '#')                                                       //checks if there is a comment in the input. If so, the rest of the input is ignored
       {
           it = a.end();
-
-
       }
       else
       {
-        if(*it == '\"')                   //checks for starting quotation
+        if(*it == '\"')                                                         //checks for starting quotation
         {
           quote = true;
         }
@@ -247,7 +244,7 @@ void SubStrBuilder(vector<string> &cmdVector,string a)
       }
     }
   }
-  if(newStr != "")                        //this stops any empty strings from being added/categorized
+  if(newStr != "")                                                              //this stops any empty strings from being added/categorized
   {
     cmdVector.push_back(newStr);
   }
@@ -335,7 +332,6 @@ Shell * compose_tree(vector<string> vec)
   }
 }
 
-
 int main(int argc, char *argv[])
 {
   //variables
@@ -346,7 +342,7 @@ int main(int argc, char *argv[])
   for(;;)
   {
     info();
-    if(!getline(cin,input))
+    if(!getline(cin,input) || cin.eof())
     {
       break;
     }

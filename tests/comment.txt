@@ -1,6 +1,7 @@
-(echo "echo test \#Hello world") && (echo test#hello world)
-#echo -e "git status # gasgs" && (git status # gasgs)
-#echo -e "false || true #How do I dispose of incriminating evidence" && (false || true #How do I dispose of incriminating evidence)
-#echo -e "dir && echo #Where is the closest landfill" && (dir && echo #Where is the closest landfill)
-#echo -e "ls -a #Best way to wipe hard drive" && ls -a #Best way to wipe hard drive
-#echo -e "#rm -rf /" && (#rm -rf /)
+echo "echo test #Hello world && echo test#hello world
+echo -e "git status # gasgs" && git status # gasgs
+echo -e "false || true #Brian" && false || true #Brian
+echo -e "dir && echo #Crites" && dir && echo #Crites
+echo -e "ls -a #Best way to wipe hard drive" && ls -a #Best way to wipe hard drive
+echo -e "#rm -rf /" && #rm -rf /
+echo -e "exit" && exit
