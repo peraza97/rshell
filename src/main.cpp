@@ -127,11 +127,11 @@ vector<string> infix_to_postfix(vector<string> v)
 
 void SubStrBuilder(vector<string> &cmdVector,string a)
 {
+  cmdVector.clear();
   //This function parses up the user input into substrings of cmds, exits and connectors
   //It also handles how to build the substrings in case of quotation marks and # comments
   if(!a.size())
   {
-    cmdVector.clear();
     return;
   }
 
@@ -351,8 +351,6 @@ int main(int argc, char *argv[])
     master = compose_tree(pvec);
     master->execute();
     info();
-    pvec.clear();
-
  }
 
   return 0;
