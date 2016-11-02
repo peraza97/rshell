@@ -127,8 +127,14 @@ vector<string> infix_to_postfix(vector<string> v)
 
 void SubStrBuilder(vector<string> &cmdVector,string a)
 {
+  cmdVector.clear();
   //This function parses up the user input into substrings of cmds, exits and connectors
   //It also handles how to build the substrings in case of quotation marks and # comments
+  if(!a.size())
+  {
+    return;
+  }
+
 	string::iterator it = a.begin();
 	string newStr;
   bool quote = false;                     //used to keep track if the current input is part of a quote
@@ -267,8 +273,9 @@ Shell * createNodes(string s)
 
 }
 
-Shell * compose_tree(vector<string> v)
+Shell * compose_tree(vector<string> vec)
 {
+  vector<string> v = infix_to_postfix(vec);
   //this stack will create our tree
   stack<Shell *> shell;
   unsigned index = 0;
@@ -323,7 +330,8 @@ Shell * compose_tree(vector<string> v)
   }
   else
   {
-    return NULL;
+    Shell * p = new Cmd();
+    return p;
   }
 }
 
@@ -331,37 +339,18 @@ Shell * compose_tree(vector<string> v)
 int main(int argc, char *argv[])
 {
   //variables
-  //string input ="";
-  vector<string> comVector;
-  //the shell pointer that will point to the top of the tree
+  string input ="";
+  vector<string> pvec;
   Shell * master = NULL;
   //infinite loop
   info();
-  for(string input = ""; getline(cin,input);)
+  for(input="";getline(cin,input);)
   {
-    info();
     //output the username and the host machine
-    //this seperates the command into a vector
-    SubStrBuilder(comVector,input);
-    //turns the vector into postfix notation
-    comVector = infix_to_postfix(comVector);
-
-    //if the vector has elements in it this means at least 1 command entered
-    if(!comVector.empty())
-    {
-        //return the top node
-        master =  compose_tree(comVector);
-        //if there is a valid Shell * to execute
-        if(master != NULL)
-        {
-          master->execute();
-        }
-        //if there wasnt that means there wasnt a valid command entered
-    }
-
-      //clear the variables for the next iteration
-  comVector.clear();
-  
+    SubStrBuilder(pvec, input);
+    master = compose_tree(pvec);
+    master->execute();
+    info();
  }
 
   return 0;
