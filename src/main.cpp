@@ -128,7 +128,6 @@ vector<string> infix_to_postfix(vector<string> v)
 
 void SubStrBuilder(vector<string> &cmdVector,string a)
 {
-  cmdVector.clear();
   //This function parses up the user input into substrings of cmds, exits and connectors
   //It also handles how to build the substrings in case of quotation marks and # comments
   if(!a.size())
@@ -253,12 +252,23 @@ void SubStrBuilder(vector<string> &cmdVector,string a)
 
 Shell * createNodes(string s)
 {
+  string command = "";
+  char a;
+  for(unsigned i = 0; i < s.size();++i)
+  {
+    a = s.at(i);
+    if(a!= ' ')
+    {
+      command+= a;
+    }
+  }
+
   Shell * temp;
   char * p = new char[s.size() - 1];
   //the input is now in a char array
   strcpy(p,s.c_str());
 
-  if(s == "exit")
+  if(command == "exit" || command == "Exit")
   {
    temp = new Exit();
   }
@@ -336,29 +346,21 @@ Shell * compose_tree(vector<string> vec)
 int main(int argc, char *argv[])
 {
   //variables
-  string input ="";
-  vector<string> pvec;
   Shell * master = NULL;
   //infinite loop
-  for(;;)
-  {
-    info();
-    input = "";
-    getline(cin,input);
-    if(cin.fail())
-    {
-      break;
-    }
-    //parse our input
-    SubStrBuilder(pvec, input);
-    //compose the tree
-    master = compose_tree(pvec);
-    //exectute the tree
-    if(master)
-    {
-      master->execute();
-    }
 
+ for(;;)
+ {
+   info();
+   string input ="";
+   vector<string> pvec;
+   if(!getline(cin,input))
+   {
+    break;
+   }
+   SubStrBuilder(pvec,input);
+   master = compose_tree(pvec);
+   master->execute();
  }
   return 0;
 }

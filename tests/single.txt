@@ -1,7 +1,7 @@
 echo Hello World
 ls -a
 ls -l
-touch a
-rm a
+pwd
+ls -a 
 echo this is the echo test
 exit
