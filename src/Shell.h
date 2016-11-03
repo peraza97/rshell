@@ -15,10 +15,6 @@ class Shell
 {
 	public:
 	Shell(){};
-	virtual ~Shell()
-	{
-		delete this;
-	}
 	virtual bool execute() = 0;
 
 };

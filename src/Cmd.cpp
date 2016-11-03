@@ -63,6 +63,5 @@ bool Cmd::execute()
    }
 
   }
-
   return status;
 }
