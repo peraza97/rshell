@@ -1,7 +1,7 @@
-#echo -e "Hello World" && echo Hello World
-#echo -e "ls-a" && ls -a
-#echo -e "ls-l" && ls -l
-#echo -e "exit" && exit
-echo hello
-a
-ls
+echo -e "Hello World" && Hello World
+echo -e "ls -a" && ls -a
+echo -e "ls -l" && ls -l
+echo -e "a" && a
+echo -e "git log" && git log
+echo -e "d" && d
+echo -e "exit" && exit

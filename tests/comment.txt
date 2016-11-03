@@ -1,4 +1,4 @@
-echo "echo test #Hello world && echo test#hello world
+echo -e "echo test #Hello world" && echo test#hello world
 echo -e "git status # gasgs" && git status # gasgs
 echo -e "false || true #Brian" && false || true #Brian
 echo -e "dir && echo #Crites" && dir && echo #Crites

@@ -1,6 +1,3 @@
-echo "ls || exit" && (ls || exit)
-echo "git status && exit" && (git status && exit)
-#exit
-#ls ; exit
-#ls && exit
-#git status ; exit
+echo "#exit" && #exit
+echo -e "git branch && exit && ls" && (git branch && exit && ls)
+exit

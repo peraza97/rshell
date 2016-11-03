@@ -5,12 +5,13 @@
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <stdlib.h>
+#include <climits>
 #include <cstring>
 #include <stack>
 #include <sstream>
 #include <fstream>
 #include <string>
-#include<queue>
+#include <queue>
 #include "Shell.h"
 #include "Cmd.h"
 #include "Exit.h"
@@ -342,17 +343,25 @@ int main(int argc, char *argv[])
   for(;;)
   {
     info();
-    if(!getline(cin,input) || cin.eof())
+    input = "";
+
+    if(!cin.fail())
     {
-      break;
+        getline(cin,input);
+    }
+    else
+    {
+      getline(cin,input);
+      cin.clear();
+      cin.ignore(INT_MAX,'\n');
     }
     //parse our input
     SubStrBuilder(pvec, input);
     //compose the tree
     master = compose_tree(pvec);
     //exectute the tree
+
     master->execute();
  }
-
   return 0;
 }
