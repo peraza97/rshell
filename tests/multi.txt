@@ -3,4 +3,7 @@ echo a && echo b && echo c
 git log
 (false || echo f)
 echo asdf
-echo r ; exit
+echo r ; ls
+;
+&&
+ls ||

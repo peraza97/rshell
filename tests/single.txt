@@ -2,6 +2,7 @@ echo Hello World
 ls -a
 ls -l
 pwd
-ls -a 
+ls -a
+a
 echo this is the echo test
-exit
+pwd
