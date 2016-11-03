@@ -1,8 +1,17 @@
 echo Hello World
 ls -a
+<<<<<<< HEAD
 ls
 pwd
 echo "hi"
 false
 pwd
 echo this is the echo test
+=======
+ls -l
+pwd
+ls -a
+a
+echo this is the echo test
+pwd
+>>>>>>> exec
