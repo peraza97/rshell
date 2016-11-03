@@ -344,24 +344,21 @@ int main(int argc, char *argv[])
   {
     info();
     input = "";
-
-    if(!cin.fail())
+    getline(cin,input);
+    if(cin.fail())
     {
-        getline(cin,input);
-    }
-    else
-    {
-      getline(cin,input);
-      cin.clear();
-      cin.ignore(INT_MAX,'\n');
+      break;
     }
     //parse our input
     SubStrBuilder(pvec, input);
     //compose the tree
     master = compose_tree(pvec);
     //exectute the tree
+    if(master)
+    {
+      master->execute();
+    }
 
-    master->execute();
  }
   return 0;
 }

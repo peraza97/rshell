@@ -1,4 +1,6 @@
-echo -e "ls -a ; ls" && ls -a ; ls
-echo -e "echo a && echo b && echo c" && echo a && echo b && echo c
-echo -e "false || echo f" && false || echo f
-echo -e "echo r && git status ; exit" && echo r && git status ; exit
+ls -a ; ls
+echo a && echo b && echo c
+git log
+(false || echo f)
+echo asdf
+echo r ; exit

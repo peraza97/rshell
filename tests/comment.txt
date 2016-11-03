@@ -1,7 +1,7 @@
-echo -e "echo test #Hello world" && echo test#hello world
-echo -e "git status # gasgs" && git status # gasgs
-echo -e "false || true #Brian" && false || true #Brian
-echo -e "dir && echo #Crites" && dir && echo #Crites
-echo -e "ls -a #Best way to wipe hard drive" && ls -a #Best way to wipe hard drive
-echo -e "#rm -rf /" && #rm -rf /
-echo -e "exit" && exit
+echo test#hello world
+git status # gasgs
+false || true #Brian
+dir && echo #Crites
+ls -a #Best way to wipe hard drive
+#rm -rf /
+exit

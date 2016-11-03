@@ -20,4 +20,4 @@ eg. ls || git status turns into ls git status ||
 this allows us to then use this postfix notation to then build a tree.
 
 # Known Bugs
-Currently, we are unable to account for precedence with parenthesis. In addition, we are unable to account for piping, or redirection in our Shell.
+Currently, we are unable to account for precedence with parenthesis. In addition, we are unable to account for piping, or redirection in our Shell. When user input is redirected into the program with a file, the commands must end with an exit as the cin streambuffer will permanently be set to the bottom of the input file. Another bug with the shell scripts is as the inputs are not physically entered into the terminal. This causes our rshell to output the user info and host name and output every command (if it has an output) onto the same line. This info text can stack for multiple commands that do not have any outputs and are set to execute after each other.
