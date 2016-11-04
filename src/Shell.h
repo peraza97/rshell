@@ -1,26 +1,18 @@
-#ifndef SHELL_H
-#define SHELL_H
-#include <iostream>
+#ifndef Shell_h
+#define Shell_h
 #include <unistd.h>
+#include <iostream>
 #include <stdio.h>
 #include <sys/wait.h>
 #include <sys/types.h>
 #include <stdlib.h>
 #include <cstring>
 
-
-using namespace std;
-
 class Shell
 {
-	public:
-	Shell(){};
-	virtual ~Shell()
-	{
-		delete this;
-	}
-	virtual bool execute() = 0;
-
+  public:
+  Shell(){};
+  virtual ~Shell();
+  virtual bool execute() = 0;
 };
-
 #endif

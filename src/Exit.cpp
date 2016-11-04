@@ -1,10 +1,8 @@
 #include "Exit.h"
-#include "Shell.h"
-#include <iostream>
-using namespace std;
+#include <stdlib.h>
 
 bool Exit::execute()
 {
-  cout << "logout" << endl;
-exit(0);
+  cout << "logout"<< endl;
+  exit(0);
 }
