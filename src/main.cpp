@@ -327,15 +327,18 @@ Shell * compose_tree(vector<string> vec)
     }
     else
     {
+      //will create a cmd node, exit node, or test node
       Shell * temp = createNodes(v.at(index));
       shell.push(temp);
     }
     index++;
   }
+  //if there is a node, return it
   if(shell.size())
   {
   return shell.top();
   }
+  //if there is not, then create an empty node to execute
   else
   {
     Shell * p = new Cmd();
@@ -347,13 +350,13 @@ int main(int argc, char *argv[])
 {
   //variables
   Shell * master = NULL;
-  //infinite loop
 
- for(;;)
- {
-   info();
+  //infinite loop
+  for(;;)
+  {
    string input ="";
    vector<string> pvec;
+   info();
    if(!getline(cin,input))
    {
     break;
@@ -361,6 +364,6 @@ int main(int argc, char *argv[])
    SubStrBuilder(pvec,input);
    master = compose_tree(pvec);
    master->execute();
- }
+  }
   return 0;
 }
