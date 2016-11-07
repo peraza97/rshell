@@ -258,8 +258,9 @@ Shell * createNodes(string s)
   string command = "";
   char a;
   //used for checking test
-  size_t test = s.find("test");
-  size_t box = s.find("[");
+  size_t test = s.find("test ");
+  size_t box = s.find("[ ");
+  size_t box_end = s.find("]");
 
   for(unsigned i = 0; i < s.size();++i)
   {
@@ -278,7 +279,7 @@ Shell * createNodes(string s)
   }
 
   //now test if its a test node
-  else if(test != string::npos || box != string::npos)
+  else if(test != string::npos || (box != string::npos && box_end != string::npos))
   {
     if(test != string::npos)
     {
