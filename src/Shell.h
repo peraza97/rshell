@@ -7,6 +7,8 @@
 #include <sys/types.h>
 #include <stdlib.h>
 #include <cstring>
+#include <string>
+using namespace std;
 
 class Shell
 {
@@ -14,5 +16,6 @@ class Shell
   Shell(){};
   virtual ~Shell();
   virtual bool execute() = 0;
+  int miniParser(char * cmd, char * tok[]);
 };
 #endif

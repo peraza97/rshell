@@ -19,6 +19,7 @@
 #include "And.h"
 #include "Or.h"
 #include "Semi.h"
+#include "Test.h"
 
 using namespace std;
 
@@ -254,6 +255,9 @@ Shell * createNodes(string s)
 {
   string command = "";
   char a;
+  size_t test = s.find("test");
+  size_t box = s.find("[");
+
   for(unsigned i = 0; i < s.size();++i)
   {
     a = s.at(i);
@@ -264,16 +268,37 @@ Shell * createNodes(string s)
   }
 
   Shell * temp;
-  char * p = new char[s.size() - 1];
-  //the input is now in a char array
-  strcpy(p,s.c_str());
-
+  //create an exit node
   if(command == "exit" || command == "Exit")
   {
    temp = new Exit();
   }
+
+  //now test if its a test node
+  else if(test != string::npos || box != string::npos)
+  {
+    if(test != string::npos)
+    {
+      s.erase(test,5);
+    }
+    else
+    {
+      s.erase(box,2);
+      s.erase(s.length() - 1);
+    }
+    char * p = new char[s.size() - 1];
+    //the input is now in a char array
+    strcpy(p,s.c_str());
+    temp = new Test(p);
+    return temp;
+  }
+
+  //create a test node
   else
   {
+    char * p = new char[s.size() - 1];
+    //the input is now in a char array
+    strcpy(p,s.c_str());
     temp = new Cmd(p);
   }
 
@@ -348,22 +373,22 @@ Shell * compose_tree(vector<string> vec)
 
 int main(int argc, char *argv[])
 {
-  //variables
-  Shell * master = NULL;
+    //variables
+    Shell * master = NULL;
+    //infinite loop
+    for(;;)
+    {
+      string input ="";
+      vector<string> pvec;
+      info();
+      if(!getline(cin,input))
+      {
+        break;
+      }
+      SubStrBuilder(pvec,input);
+      master = compose_tree(pvec);
+      master->execute();
+    }
 
-  //infinite loop
-  for(;;)
-  {
-   string input ="";
-   vector<string> pvec;
-   info();
-   if(!getline(cin,input))
-   {
-    break;
-   }
-   SubStrBuilder(pvec,input);
-   master = compose_tree(pvec);
-   master->execute();
-  }
   return 0;
 }

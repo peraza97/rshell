@@ -1,21 +1,5 @@
  #include "Cmd.h"
 
-void miniParser(char * cmd, char * tok[])
-{
-  //cmd is the protected member
-  //tok is the array that will be taken in
-  char * part = strtok(cmd," ");
-  int i = 0;
-  while(part!=NULL)
-  {
-    tok[i] = part;
-    part = strtok(NULL, " ");
-    ++i;
-  }
-  tok[i] = NULL;
-
-}
-
 Cmd::Cmd()
 {
   command = NULL;
@@ -35,7 +19,7 @@ bool Cmd::execute()
   bool status = true;
 
   char * list[1000];
-  miniParser(command,list);
+  Shell::miniParser(command,list);
 
   //list now has the command in array form
   //fork the process
