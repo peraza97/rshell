@@ -41,7 +41,7 @@ bool Test::execute()
     //check if it path exists
     if(flag == "-e")
     {
-      cout <<"(true)"<<endl;
+      cout <<"(True)"<<endl;
       return true;
     }
     //check if its a regular file
@@ -49,12 +49,12 @@ bool Test::execute()
     {
       if(S_ISREG(buf.st_mode))
       {
-        cout<<"(true)"<<endl;
+        cout<<"(True)"<<endl;
         return true;
       }
       else
       {
-        cout<<"(false)"<<endl;
+        cout<<"(False)"<<endl;
         return false;
       }
     }
@@ -63,15 +63,15 @@ bool Test::execute()
     {
       if(S_ISDIR(buf.st_mode))
       {
-        cout<<"(true)"<<endl;
+        cout<<"(True)"<<endl;
         return true;
       }
       else
       {
-        cout<<"(false)"<<endl;
+        cout<<"(False)"<<endl;
         return false;
       }
     }
-
+    //if all fails, just return false
     return false;
 }

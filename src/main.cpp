@@ -253,8 +253,11 @@ void SubStrBuilder(vector<string> &cmdVector,string a)
 
 Shell * createNodes(string s)
 {
+  //variables
+  //used for checking exit
   string command = "";
   char a;
+  //used for checking test
   size_t test = s.find("test");
   size_t box = s.find("[");
 
@@ -283,7 +286,9 @@ Shell * createNodes(string s)
     }
     else
     {
+      //erase the [ and the space after it
       s.erase(box,2);
+      //erase the ] which we assume is the last character
       s.erase(s.length() - 1);
     }
     char * p = new char[s.size() - 1];
@@ -293,7 +298,7 @@ Shell * createNodes(string s)
     return temp;
   }
 
-  //create a test node
+  //create a command node
   else
   {
     char * p = new char[s.size() - 1];
