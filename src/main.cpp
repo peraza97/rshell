@@ -254,14 +254,15 @@ void SubStrBuilder(vector<string> &cmdVector,string a)
 Shell * createNodes(string s)
 {
   //variables
-  //used for checking exit
-  string command = "";
-  char a;
+  Shell * temp;
   //used for checking test
   char * p = new char[s.size() - 1];
   strcpy(p,s.c_str());
   char * val = strtok(p, " ");
 
+  //used for checking exit
+  string command = "";
+  char a;
   for(unsigned i = 0; i < s.size();++i)
   {
     a = s.at(i);
@@ -271,7 +272,7 @@ Shell * createNodes(string s)
     }
   }
 
-  Shell * temp;
+
   //create an exit node
   if(command == "exit" || command == "Exit")
   {
@@ -279,6 +280,7 @@ Shell * createNodes(string s)
   }
 
   //now test if its a test node
+  //check if the first word is test or [
   else if(string(val) == "test" || string(val)== "[")
   {
     if(string(val) == "test")
@@ -295,7 +297,6 @@ Shell * createNodes(string s)
     char * t = new char[s.size() - 1];
     strcpy(t,s.c_str());
     temp = new Test(t);
-    return temp;
   }
 
   //create a command node
