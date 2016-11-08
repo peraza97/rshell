@@ -258,9 +258,9 @@ Shell * createNodes(string s)
   string command = "";
   char a;
   //used for checking test
-  size_t test = s.find("test ");
-  size_t box = s.find("[ ");
-  size_t box_end = s.find("]");
+  char * p = new char[s.size() - 1];
+  strcpy(p,s.c_str());
+  char * val = strtok(p, " ");
 
   for(unsigned i = 0; i < s.size();++i)
   {
@@ -279,32 +279,28 @@ Shell * createNodes(string s)
   }
 
   //now test if its a test node
-  else if(test != string::npos || (box != string::npos && box_end != string::npos))
+  else if(string(val) == "test" || string(val)== "[")
   {
-    if(test != string::npos)
+    if(string(val) == "test")
     {
-      s.erase(test,5);
+      s.erase(s.find("test "),5);
     }
     else
     {
       //erase the [ and the space after it
-      s.erase(box,2);
+      s.erase(s.find("[ "),2);
       //erase the ] which we assume is the last character
       s.erase(s.length() - 1);
     }
-    char * p = new char[s.size() - 1];
-    //the input is now in a char array
-    strcpy(p,s.c_str());
-    temp = new Test(p);
+    char * t = new char[s.size() - 1];
+    strcpy(t,s.c_str());
+    temp = new Test(t);
     return temp;
   }
 
   //create a command node
   else
   {
-    char * p = new char[s.size() - 1];
-    //the input is now in a char array
-    strcpy(p,s.c_str());
     temp = new Cmd(p);
   }
 
