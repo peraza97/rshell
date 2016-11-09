@@ -255,10 +255,15 @@ Shell * createNodes(string s)
 {
   //variables
   Shell * temp;
-  //used for checking test
+  //turn the string s into a char *
   char * p = new char[s.size() - 1];
   strcpy(p,s.c_str());
-  char * val = strtok(p, " ");
+
+  //used for checking test
+  //turn s into a char * and tokenize it to get first word
+  char * dum = new char[s.size() - 1];
+  strcpy(dum,s.c_str());
+  char * val = strtok(dum, " ");
 
   //used for checking exit
   string command = "";
@@ -271,7 +276,6 @@ Shell * createNodes(string s)
       command+= a;
     }
   }
-
 
   //create an exit node
   if(command == "exit" || command == "Exit")
@@ -291,8 +295,12 @@ Shell * createNodes(string s)
     {
       //erase the [ and the space after it
       s.erase(s.find("[ "),2);
-      //erase the ] which we assume is the last character
-      s.erase(s.length() - 1);
+      //erase the ] which we assume is somewhere
+      if(s.find(" ]") != string::npos)
+      {
+        s.erase(s.find(" ]"),2);
+      }
+
     }
     char * t = new char[s.size() - 1];
     strcpy(t,s.c_str());

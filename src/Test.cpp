@@ -35,7 +35,7 @@ bool Test::execute()
     //path does not exist
     if(valid == -1)
     {
-      perror("path does not exist");
+      perror("path: ");
       return false;
     }
     //check if it path exists
