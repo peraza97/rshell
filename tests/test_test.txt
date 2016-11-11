@@ -1,0 +1,1 @@
+test -e exits.txt && echo "path exists"
