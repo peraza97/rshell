@@ -4,3 +4,13 @@ echo a
 #(test -f single.txt && echo "file exists")|| echo "file does not exist"
 ([ -d precedence.txt ] && echo "directory exists") || echo "directory does not exist"
 (test -d testDir && echo "directory exists" ) && exit
+test exits.txt && echo "path exists"
+test -f exits.txt && echo "is a file"
+test -d exits.txt && echo "is a directory"
+test -d precedence_test.sh && echo "is a directory"
+echo -e " starting [] "
+[ exits.txt ] && echo "path exists"
+[ -f exits.txt ] && echo "is a file"
+[ -d exits.txt ] && echo "is a directory"
+[ -d precedence_test.sh ] && echo "is a directory"
+
