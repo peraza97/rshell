@@ -1,1 +1,6 @@
-test -e exits.txt && echo "path exists"
+ls && test -e exits.txt
+#( [ -e multi.txt ] && echo file exists ) || echo "file does not exist"
+echo a
+#(test -f single.txt && echo "file exists")|| echo "file does not exist"
+([ -d precedence.txt ] && echo "directory exists") || echo "directory does not exist"
+(test -d testDir && echo "directory exists" ) && exit
