@@ -7,8 +7,10 @@
  }
  Connector::~Connector()
  {
-   delete left;
-   delete right;
+  delete left;
+  delete right;
+  left = NULL;
+  right = NULL;
  }
  Connector::Connector(Shell * l, Shell * r)
  {

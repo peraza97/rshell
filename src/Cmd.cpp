@@ -12,7 +12,8 @@ Cmd::Cmd(char * cmd)
 
 Cmd::~Cmd()
 {
-  delete command;
+ delete command;
+ command = NULL;
 }
 bool Cmd::execute()
 {

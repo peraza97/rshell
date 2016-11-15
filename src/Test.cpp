@@ -9,6 +9,15 @@ Test::Test(char * cmd)
     command = cmd;
 }
 
+Test::~Test()
+{
+    printf("%s\n",command );
+    delete command;
+    command = NULL;
+   cout << "command deleted";
+   printf("%s\n",command );
+}
+
 bool Test::execute()
 {
     //variables needed
@@ -17,12 +26,14 @@ bool Test::execute()
     string flag;
     string path;
     int temp = Shell::miniParser(command,list);
-    //if there is only one element, the path
+    //if there is only one element
+    //this means that there was no flag
     if(temp == 1)
     {
       flag = "-e";
       path = string(list[0]);
     }
+    //there is a flag
     else
     {
       flag = string(list[0]);

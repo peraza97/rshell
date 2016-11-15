@@ -1,5 +1,5 @@
 
-COMPILE = g++
+COMPILE = g++ 
 FLAGS =-Wall  -Werror  -ansi -pedantic
 
 OBJS = ./bin/Shell.o ./bin/Cmd.o ./bin/Exit.o ./bin/Test.o  ./bin/Connector.o ./bin/And.o ./bin/Or.o ./bin/Semi.o

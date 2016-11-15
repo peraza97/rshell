@@ -10,6 +10,7 @@ class Test: public Shell
   public:
   Test();
   Test(char *);
+  ~Test();
   bool execute();
 };
 #endif

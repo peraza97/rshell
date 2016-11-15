@@ -73,7 +73,9 @@ int priority(string op)
 
 vector<string> infix_to_postfix(vector<string> v)
 {
+  //stack for pushing and popping
   stack<string> s;
+  // store the result in this vector to be returned
   vector<string> result;
   string c;
   for(unsigned i = 0; i< v.size();++i)
@@ -385,10 +387,10 @@ Shell * compose_tree(vector<string> vec)
 int main(int argc, char *argv[])
 {
     //variables
-    Shell * master = NULL;
     //infinite loop
     for(;;)
     {
+      Shell * master = NULL;
       string input ="";
       vector<string> pvec;
       info();
