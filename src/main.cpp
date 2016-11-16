@@ -257,64 +257,54 @@ Shell * createNodes(string s)
 {
   //variables
   Shell * temp;
-  //turn the string s into a char *
-  char * p = new char[s.size() - 1];
-  strcpy(p,s.c_str());
-
-  //used for checking test
-  //turn s into a char * and tokenize it to get first word
-  char * dum = new char[s.size() - 1];
-  strcpy(dum,s.c_str());
-  char * val = strtok(dum, " ");
-
-  //used for checking exit
-  string command = "";
-  char a;
-  for(unsigned i = 0; i < s.size();++i)
-  {
-    a = s.at(i);
-    if(a!= ' ')
-    {
-      command+= a;
-    }
-  }
-
+  char * val;
+  char * split = new char[500];
+  strcpy(split,s.c_str());
+  val = strtok(split," ");
   //create an exit node
-  if(command == "exit" || command == "Exit")
+  if(string(val) == "exit" || string(val) == "Exit")
   {
    temp = new Exit();
   }
-
-  //now test if its a test node
-  //check if the first word is test or [
-  else if(string(val) == "test" || string(val)== "[")
+  //creating a test node
+  else if(string(val) == "Test" || string(val) == "test" || string(val) == "[")
   {
+    //if the test case is the word test
     if(string(val) == "test")
     {
-      s.erase(s.find("test "),5);
+      s.erase(s.find("test"),4);
+    }
+    //else, the test case is the []
+    else
+    {
+      s.erase(s.find("[ "),1);
+           //erase the ] which we assume is somewhere
+           if(s.find(" ]") != string::npos)
+           {
+             s.erase(s.find("]"),1);
+           }
+    }
+    if(s.size() == 0)
+    {
+      temp = new Test();
     }
     else
     {
-      //erase the [ and the space after it
-      s.erase(s.find("[ "),2);
-      //erase the ] which we assume is somewhere
-      if(s.find(" ]") != string::npos)
-      {
-        s.erase(s.find(" ]"),2);
-      }
-
-    }
     char * t = new char[s.size() - 1];
     strcpy(t,s.c_str());
     temp = new Test(t);
+    }
   }
 
   //create a command node
   else
   {
+    //turn the string s into a char *
+    char * p = new char[s.size() - 1];
+    strcpy(p,s.c_str());
     temp = new Cmd(p);
   }
-
+  delete split;
   return temp;
 
 }
@@ -401,6 +391,7 @@ int main(int argc, char *argv[])
       SubStrBuilder(pvec,input);
       master = compose_tree(pvec);
       master->execute();
+      delete master;
     }
 
   return 0;

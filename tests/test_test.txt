@@ -1,12 +1,10 @@
  test -e exits.txt
 ( [ -e multi.txt ] && echo multi.txt exists  ) &&  echo "file exists"
-([ -e multt.txt] || echo passed) && echo "parses"
-([ -e multt.txt] || echo passed) && echo "parses"; ls ; ls
-[ -e multt.txt] && echo hello world
-[ -e multt.txt] || asdfsdfsd
-[ -e multt.txt] || ls
+[ -e multt.txt] || one
 ( [ -e multi.txt] && echo b ) && echo "hello chris"
-[ -e multt.txt]
+echo a
+echo b
+[ -e multi.txt ]
 [ -e multt.txt]
 [ -e multt.txt]
 [ -e multt.txt]

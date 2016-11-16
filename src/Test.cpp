@@ -11,18 +11,21 @@ Test::Test(char * cmd)
 
 Test::~Test()
 {
-    printf("%s\n",command );
-    delete command;
+
+    delete[] command;
     command = NULL;
-   cout << "command deleted";
-   printf("%s\n",command );
 }
 
 bool Test::execute()
 {
+  if(command == NULL)
+  {
+    cout << "(False)" << endl;
+    return false;
+  }
     //variables needed
     struct stat buf;
-    char * list[1000];
+    char * list[500];
     string flag;
     string path;
     int temp = Shell::miniParser(command,list);

@@ -2,7 +2,6 @@
 
 Shell::~Shell()
 {
- delete this;
 }
 
 int Shell::miniParser(char * cmd, char * tok[])

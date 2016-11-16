@@ -12,14 +12,14 @@ Cmd::Cmd(char * cmd)
 
 Cmd::~Cmd()
 {
- delete command;
+ delete[] command;
  command = NULL;
 }
 bool Cmd::execute()
 {
   bool status = true;
 
-  char * list[1000];
+  char * list[500];
   Shell::miniParser(command,list);
 
   //list now has the command in array form
