@@ -3,11 +3,9 @@
 [ -e multt.txt] || one
 ( [ -e multi.txt] && echo b ) && echo "hello chris"
 echo a
-echo b
-[ -e multi.txt ]
-[ -e multt.txt]
-[ -e multt.txt]
-[ -e multt.txt]
-[ -e multt.txt]
-[ -e multt.txt]
-[ -e multt.txt]
+echo "-e flag"
+echo "[]"
+([ -e multi.txt ] && echo "the file exists" ); echo " -e flag"
+([ -d multi.txt ]  || (echo "the file does not exist" ; ls ));
+echo "test "
+( test multi.txt  && (echo "the file exists" ; ls )); echo hello world
