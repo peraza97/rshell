@@ -9,7 +9,7 @@ class Test: public Shell
   char * command;
   public:
   Test();
-  Test(char *);
+  Test(string );
   ~Test();
   bool execute();
 };

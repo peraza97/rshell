@@ -5,9 +5,11 @@ Cmd::Cmd()
   command = NULL;
 }
 
-Cmd::Cmd(char * cmd)
+Cmd::Cmd(string cmd)
 {
-  this->command = cmd;
+char * t = new char[cmd.size() - 1];
+strcpy(t,cmd.c_str());
+this->command = t;
 }
 
 Cmd::~Cmd()
@@ -18,11 +20,37 @@ Cmd::~Cmd()
 bool Cmd::execute()
 {
   bool status = true;
-
   char * list[500];
-  Shell::miniParser(command,list);
+  int size = Shell::miniParser(command,list);
 
-  //list now has the command in array form
+//this segment of the code is for the cd command
+    register struct passwd *p;
+    register uid_t uid;
+    uid = getuid ();
+    string name = "/home/";
+    p = getpwuid (uid);
+
+    if(p)
+    {
+    name +=p->pw_name;
+    }
+
+
+   if(size > 1)
+    {
+        if(string(list[0]) == "cd")
+        {
+        string arg = string(list[1]);
+        if(arg.find("~") != string::npos)
+        {
+        arg.replace(arg.find("~"),1,name);
+        return chdir(arg.c_str());
+        }
+        return chdir(list[1]);
+        }
+    }
+
+//list now has the command in array form
   //fork the process
   pid_t pid = fork();
   //child process
@@ -52,5 +80,4 @@ bool Cmd::execute()
   }
 
   return status;
-
-}
+  }

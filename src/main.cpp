@@ -290,19 +290,14 @@ Shell * createNodes(string s)
     }
     else
     {
-    char * t = new char[s.size() - 1];
-    strcpy(t,s.c_str());
-    temp = new Test(t);
+    temp = new Test(s);
     }
   }
 
   //create a command node
   else
   {
-    //turn the string s into a char *
-    char * p = new char[s.size() - 1];
-    strcpy(p,s.c_str());
-    temp = new Cmd(p);
+    temp = new Cmd(s);
   }
   delete split;
   return temp;

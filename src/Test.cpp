@@ -4,9 +4,11 @@ Test::Test()
     command = NULL;
 }
 
-Test::Test(char * cmd)
+Test::Test(string cmd)
 {
-    command = cmd;
+  char * t = new char[cmd.size() - 1];
+  strcpy(t,cmd.c_str());
+  this->command = t;
 }
 
 Test::~Test()
