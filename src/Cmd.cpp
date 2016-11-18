@@ -24,33 +24,45 @@ bool Cmd::execute()
   int size = Shell::miniParser(command,list);
 
 //this segment of the code is for the cd command
-    register struct passwd *p;
-    register uid_t uid;
-    uid = getuid ();
-    string name = "/home/";
-    p = getpwuid (uid);
+  register struct passwd *p;
+  register uid_t uid;
+  uid = getuid ();
+  string name = "/home/";
+  p = getpwuid (uid);
 
-    if(p)
+  if(p)
+  {
+  name +=p->pw_name;
+  }
+
+  if(string(list[0]) == "cd")
+  {
+    //if there is a path to change
+    if(size > 1)
     {
-    name +=p->pw_name;
-    }
-
-
-   if(size > 1)
-    {
-        if(string(list[0]) == "cd")
-        {
-        string arg = string(list[1]);
-        if(arg.find("~") != string::npos)
-        {
+      string arg = string(list[1]);
+      //check if there is a tilda
+      if(arg.find("~") != string::npos)
+      {
         arg.replace(arg.find("~"),1,name);
-        return chdir(arg.c_str());
-        }
-        return chdir(list[1]);
-        }
+      }
+      //check if it passes
+      if(chdir(arg.c_str()) == -1)
+      {
+        return false;
+      }
+      else
+      {
+        return true;
+      }
     }
+    //no path specified so return true
+    else
+    {
+      return true;
+    }
+  }
 
-//list now has the command in array form
   //fork the process
   pid_t pid = fork();
   //child process

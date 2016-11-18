@@ -383,6 +383,10 @@ int main(int argc, char *argv[])
       {
         break;
       }
+      if(input == "")
+      {
+        continue;
+      }
       SubStrBuilder(pvec,input);
       master = compose_tree(pvec);
       master->execute();
