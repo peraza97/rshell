@@ -33,7 +33,7 @@ void info()
   p = getpwuid (uid);
   if (p)
     {
-      cout << p->pw_name;
+      cout <<"[" << p->pw_name;
     }
 
   //retrieve host name
@@ -41,7 +41,13 @@ void info()
   host[499] = '\0';
   gethostname(host, 499);
   printf("@%s", host);
-  cout << "$ ";
+  //get current directory
+  char * cw = getenv("PWD");
+  if(cw != NULL)
+  {
+    cout << " " << cw;
+  }
+  cout << "]$ ";
 }
 
 void print_vec(vector<string> v)

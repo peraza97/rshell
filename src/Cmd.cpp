@@ -89,7 +89,7 @@ bool Cmd::execute()
       ++i;
     }
     list[i] = NULL;
-    
+
     while(arg_2.size() > 0)
     {
       char * a = arg_2.front();
@@ -98,6 +98,53 @@ bool Cmd::execute()
     }
 
 //this segment of the code is for the cd command
+    string home = "/home/";
+    home += getpwuid(geteuid())->pw_name;
+
+  if(string(command) == "cd")
+  {
+    //no path specified
+    if(arg.size() == 0)
+    {
+
+      if(chdir(home.c_str()) == -1)
+      {
+        return false;
+      }
+      else
+      {
+        setenv("PWD",home.c_str(), 1);
+        return true;
+      }
+    }
+    //path specified
+    else
+    {
+      string path = string(arg.front());
+      if(path.find('-') != string::npos)
+      {
+        path.replace(path.find("-"),1,home);
+      }
+      if(chdir(path.c_str()) == -1)
+      {
+        return false;
+      }
+      else
+      {
+        char * p = new char[1024];
+        getcwd(p,1024);
+        if(p != NULL)
+        {
+          setenv("PWD",p, 1);
+        }
+        delete[] p;
+        return true;
+      }
+    }
+
+  }
+
+
   //fork the process
   pid_t pid = fork();
   //child process
