@@ -98,11 +98,9 @@ bool Cmd::execute()
     }
 
 //this segment of the code is for the cd command
-    string home = "/home/";
-    home += getpwuid(geteuid())->pw_name;
-
   if(string(command) == "cd")
   {
+    string home = getenv("HOME");
     //no path specified
     if(arg.size() == 0)
     {
@@ -113,6 +111,7 @@ bool Cmd::execute()
       }
       else
       {
+        cout << home << endl;
         setenv("PWD",home.c_str(), 1);
         return true;
       }
