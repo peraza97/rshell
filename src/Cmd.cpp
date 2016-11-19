@@ -100,18 +100,26 @@ bool Cmd::execute()
 //this segment of the code is for the cd command
   if(string(command) == "cd")
   {
-    string home = getenv("HOME");
+    char * home = getenv("HOME");
+    if(home == NULL)
+    {
+      perror("getenv");
+    }
     //no path specified
     if(arg.size() == 0)
     {
 
-      if(chdir(home.c_str()) == -1)
+      if(chdir(home) == -1)
       {
         return false;
       }
       else
       {
-        setenv("PWD",home.c_str(), 1);
+        if(setenv("PWD",home, 1) == -1)
+        {
+          perror("setenv");
+          return false;
+        }
         return true;
       }
     }
@@ -121,7 +129,7 @@ bool Cmd::execute()
       string path = string(arg.front());
       if(path.find('-') != string::npos)
       {
-        path.replace(path.find("-"),1,home);
+        path.replace(path.find("-"),1,"..");
       }
       if(chdir(path.c_str()) == -1)
       {
@@ -131,9 +139,15 @@ bool Cmd::execute()
       {
         char * p = new char[1024];
         getcwd(p,1024);
-        if(p != NULL)
+        if(p == NULL)
         {
-          setenv("PWD",p, 1);
+        perror("getcwd");
+        }
+        if(setenv("PWD",p, 1) == -1)
+        {
+          perror("setenv");
+          delete[] p;
+          return false;
         }
         delete[] p;
         return true;
