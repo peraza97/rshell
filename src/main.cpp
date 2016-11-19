@@ -284,7 +284,7 @@ Shell * createNodes(string s)
              s.erase(s.find("]"),1);
            }
     }
-    if(s.size() == 0)
+    if(s.size() == 0 || (s.find_first_not_of(' ') == std::string::npos))
     {
       temp = new Test();
     }
@@ -299,7 +299,6 @@ Shell * createNodes(string s)
   {
     temp = new Cmd(s);
   }
-  delete split;
   return temp;
 
 }

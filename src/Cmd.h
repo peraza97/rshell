@@ -8,16 +8,19 @@
 #include <sys/types.h>
 #include "Shell.h"
 #include <iostream>
+#include <queue>
+#include <stack>
 using namespace std;
 
 class Cmd: public Shell
 {
   protected:
   char * command;
+  queue<char *> arg;
 
   public:
   Cmd();
-  Cmd(string );
+  Cmd(string);
   ~Cmd();
 
   bool execute();

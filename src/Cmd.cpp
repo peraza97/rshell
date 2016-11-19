@@ -7,62 +7,95 @@ Cmd::Cmd()
 
 Cmd::Cmd(string cmd)
 {
-char * t = new char[cmd.size() - 1];
-strcpy(t,cmd.c_str());
-this->command = t;
+  this->command = NULL;
+  string temp = "";
+  char spot;
+  for(unsigned i = 0; i < cmd.size(); ++i)
+  {
+    spot = cmd.at(i);
+    //if spot is a space
+    if(spot == ' ')
+    {
+      if(temp!= "")
+      {
+        char * a = new char [temp.size()-1];
+        memcpy(a, temp.c_str(), temp.size() + 1);
+        if(command == NULL)
+        {
+          command = a;
+        }
+        else
+        {
+          arg.push(a);
+        }
+      }
+
+      temp = "";
+    }
+    //if space is a letter
+    else
+    {
+    temp+=spot;
+    }
+  }
+  //if the foor loop ends but the temp string
+  //has not been cleared
+  //if temp is not empty at the end
+  if(temp != "")
+  {
+    char * a = new char [temp.size()-1];
+    memcpy(a, temp.c_str(), temp.size() + 1);
+    if(command == NULL)
+    {
+      command = a;
+    }
+    else
+    {
+      arg.push(a);
+    }
+  }
+
 }
 
 Cmd::~Cmd()
 {
- delete[] command;
- command = NULL;
+  delete[] command;
+  while(arg.size() > 0)
+  {
+     char * a = arg.front();
+     arg.pop();
+     delete[] a;
+  }
 }
+
+
 bool Cmd::execute()
 {
-  bool status = true;
-  char * list[500];
-  int size = Shell::miniParser(command,list);
+    bool status = true;
+    char * list[500];
+    int i = 1;
+    int arg_size = arg.size();
+    queue<char * > arg_2;
+
+    //set list[0] to the command
+    list[0] = command;
+    //set the rest to the flags
+    while(arg.size() > 0)
+    {
+      char * a = arg.front();
+      arg.pop();
+      list[i] = a;
+      arg_2.push(a);
+      ++i;
+    }
+    while(arg_2.size() > 0)
+    {
+      char * a = arg_2.front();
+      arg_2.pop();
+      arg.push(a);
+    }
 
 //this segment of the code is for the cd command
-  register struct passwd *p;
-  register uid_t uid;
-  uid = getuid ();
-  string name = "/home/";
-  p = getpwuid (uid);
-
-  if(p)
-  {
-  name +=p->pw_name;
-  }
-
-  if(string(list[0]) == "cd")
-  {
-    //if there is a path to change
-    if(size > 1)
-    {
-      string arg = string(list[1]);
-      //check if there is a tilda
-      if(arg.find("~") != string::npos)
-      {
-        arg.replace(arg.find("~"),1,name);
-      }
-      //check if it passes
-      if(chdir(arg.c_str()) == -1)
-      {
-        return false;
-      }
-      else
-      {
-        return true;
-      }
-    }
-    //no path specified so return true
-    else
-    {
-      return true;
-    }
-  }
-
   //fork the process
   pid_t pid = fork();
   //child process
@@ -89,6 +122,10 @@ bool Cmd::execute()
     {
       status = false;
     }
+  }
+  for(int j = 0; j <= arg_size; ++j)
+  {
+    list[j] = NULL;
   }
 
   return status;
