@@ -111,7 +111,6 @@ bool Cmd::execute()
       }
       else
       {
-        cout << home << endl;
         setenv("PWD",home.c_str(), 1);
         return true;
       }
