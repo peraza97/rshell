@@ -89,6 +89,7 @@ bool Cmd::execute()
       ++i;
     }
     list[i] = NULL;
+    
     while(arg_2.size() > 0)
     {
       char * a = arg_2.front();
