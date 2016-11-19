@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 echo Hello World
 ls -a
 <<<<<<< HEAD
@@ -15,3 +16,7 @@ a
 echo this is the echo test
 pwd
 >>>>>>> exec
+=======
+a
+ls
+>>>>>>> test

@@ -1,67 +1,133 @@
-#include "Cmd.h"
+ #include "Cmd.h"
 
-void parseData(char * cmd, char * tok [])
+Cmd::Cmd()
 {
-  //char * tok[1000];
-  //char array for tokenizing
-  char *part = strtok(cmd, " ");
-  int i = 0;
-  tok[i] = part;
-  while(part != NULL)
+  command = NULL;
+}
+
+Cmd::Cmd(string cmd)
+{
+  this->command = NULL;
+  string temp = "";
+  char spot;
+  for(unsigned i = 0; i < cmd.size(); ++i)
   {
-    part = strtok(NULL, " ");
-    tok[++i] = part;
+    spot = cmd.at(i);
+    //if spot is a space
+    if(spot == ' ')
+    {
+      if(temp!= "")
+      {
+        char * a = new char [temp.size()-1];
+        memcpy(a, temp.c_str(), temp.size() + 1);
+        if(command == NULL)
+        {
+          command = a;
+        }
+        else
+        {
+          arg.push(a);
+        }
+      }
+
+      temp = "";
+    }
+    //if space is a letter
+    else
+    {
+    temp+=spot;
+    }
   }
-  //tok[i]=NULL;
+  //if the foor loop ends but the temp string
+  //has not been cleared
+  //if temp is not empty at the end
+  if(temp != "")
+  {
+    char * a = new char [temp.size()-1];
+    memcpy(a, temp.c_str(), temp.size() + 1);
+    if(command == NULL)
+    {
+      command = a;
+    }
+    else
+    {
+      arg.push(a);
+    }
+  }
+
 }
 
 Cmd::~Cmd()
 {
-  delete[] cmd;
-  cmd = NULL;
+  delete[] command;
+  while(arg.size() > 0)
+  {
+     char * a = arg.front();
+     arg.pop();
+     delete[] a;
+  }
 }
+
 
 bool Cmd::execute()
 {
-  char * list[1000];
-  bool status = true;
+    bool status = true;
+    char * list[500];
+    int i = 1;
+    int arg_size = arg.size();
+    queue<char * > arg_2;
 
-  parseData(cmd,list);
+    //set list[0] to the command
+    list[0] = command;
+    //set the rest to the flags
+    while(arg.size() > 0)
+    {
+      char * a = arg.front();
+      arg.pop();
+      list[i] = a;
+      arg_2.push(a);
+      ++i;
+    }
+    list[i] = NULL;
+    
+    while(arg_2.size() > 0)
+    {
+      char * a = arg_2.front();
+      arg_2.pop();
+      arg.push(a);
+    }
+
+//this segment of the code is for the cd command
   //fork the process
   pid_t pid = fork();
-
-  //the process fails
-  if(pid < 0)
+  //child process
+  if(pid == 0)
   {
-    perror("fork failed");
-    status = false;
-  }
-
-  //the child process
-  else if(pid == 0)
-  {
-    if(execvp(list[0],list) == -1)
+    int result = execvp(list[0],list);
+    if(result == -1)
     {
       string error = "rshell: ";
       error += (string)list[0];
       perror(error.c_str());
-      exit(1);
+      _exit(1);
     }
-
   }
   //parent process
   else if(pid > 0)
   {
-    int st;
-    if(waitpid(pid, &st,0) == -1)
+    int child;
+    if(waitpid(pid,&child,0) == -1)
     {
       perror("wait failure");
     }
-    if(WEXITSTATUS(st) != 0)
-   {
-   status = false;
-   }
-
+    if(WEXITSTATUS(child))
+    {
+      status = false;
+    }
+  }
+  for(int j = 0; j <= arg_size; ++j)
+  {
+    list[j] = NULL;
   }
   return status;
-}
+  }

@@ -1,0 +1,11 @@
+ test -e exits.txt
+( [ -e multi.txt ] && echo multi.txt exists  ) &&  echo "file exists"
+[ -e multt.txt] || one
+( [ -e multi.txt] && echo b ) && echo "hello chris"
+echo a
+echo "-e flag"
+echo "[]"
+([ -e multi.txt ] && echo "the file exists" ); echo " -e flag"
+([ -d multi.txt ]  || (echo "the file does not exist" ; ls ));
+echo "test "
+( test multi.txt  && (echo "the file exists" ; ls )); echo hello world

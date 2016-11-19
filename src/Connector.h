@@ -1,19 +1,21 @@
-#ifndef CONNECTOR_H
-#define CONNECTOR_H
-#include <iostream>
+#ifndef Connector_h
+#define Connector_h
 #include "Shell.h"
+#include <iostream>
+
 using namespace std;
 
 class Connector : public Shell
 {
-protected:
-	Shell* left;
-	Shell* right;
+  protected:
+  Shell * left;
+  Shell * right;
 
-	public:
-	Connector(): left(NULL), right(NULL) {};
-	Connector(Shell * l, Shell * r):left(l), right(r){};
-	virtual bool execute() = 0;
+  public:
+  Connector();
+  Connector(Shell *l, Shell * r);
+  ~Connector();
+  virtual bool execute() = 0;
+
 };
-
 #endif

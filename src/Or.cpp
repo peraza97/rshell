@@ -1,6 +1,6 @@
-#include "Or.h"
+ #include "Or.h"
 
-bool Or:: execute()
+bool Or::execute()
 {
   bool status = true;
   if(!left->execute())
@@ -10,7 +10,5 @@ bool Or:: execute()
       status = false;
     }
   }
-
   return status;
-
 }

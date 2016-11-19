@@ -1,0 +1,7 @@
+(echo a || echo b ) && echo c
+(echo a || echo b) && echo c
+echo a || ( echo b && echo c)
+( ls -a || false) && git log
+ls -a || (false && git log)
+(echo test && echo " finished") && exit
+()

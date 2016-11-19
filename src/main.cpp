@@ -19,6 +19,7 @@
 #include "And.h"
 #include "Or.h"
 #include "Semi.h"
+#include "Test.h"
 
 using namespace std;
 
@@ -72,7 +73,9 @@ int priority(string op)
 
 vector<string> infix_to_postfix(vector<string> v)
 {
+  //stack for pushing and popping
   stack<string> s;
+  // store the result in this vector to be returned
   vector<string> result;
   string c;
   for(unsigned i = 0; i< v.size();++i)
@@ -252,31 +255,50 @@ void SubStrBuilder(vector<string> &cmdVector,string a)
 
 Shell * createNodes(string s)
 {
-  string command = "";
-  char a;
-  for(unsigned i = 0; i < s.size();++i)
-  {
-    a = s.at(i);
-    if(a!= ' ')
-    {
-      command+= a;
-    }
-  }
-
+  //variables
   Shell * temp;
-  char * p = new char[s.size() - 1];
-  //the input is now in a char array
-  strcpy(p,s.c_str());
-
-  if(command == "exit" || command == "Exit")
+  char * val;
+  char * split = new char[500];
+  strcpy(split,s.c_str());
+  val = strtok(split," ");
+  //create an exit node
+  if(string(val) == "exit" || string(val) == "Exit")
   {
    temp = new Exit();
   }
-  else
+  //creating a test node
+  else if(string(val) == "Test" || string(val) == "test" || string(val) == "[")
   {
-    temp = new Cmd(p);
+    //if the test case is the word test
+    if(string(val) == "test")
+    {
+      s.erase(s.find("test"),4);
+    }
+    //else, the test case is the []
+    else
+    {
+      s.erase(s.find("[ "),1);
+           //erase the ] which we assume is somewhere
+           if(s.find(" ]") != string::npos)
+           {
+             s.erase(s.find("]"),1);
+           }
+    }
+    if(s.size() == 0 || (s.find_first_not_of(' ') == std::string::npos))
+    {
+      temp = new Test();
+    }
+    else
+    {
+    temp = new Test(s);
+    }
   }
 
+  //create a command node
+  else
+  {
+    temp = new Cmd(s);
+  }
   return temp;
 
 }
@@ -327,15 +349,18 @@ Shell * compose_tree(vector<string> vec)
     }
     else
     {
+      //will create a cmd node, exit node, or test node
       Shell * temp = createNodes(v.at(index));
       shell.push(temp);
     }
     index++;
   }
+  //if there is a node, return it
   if(shell.size())
   {
   return shell.top();
   }
+  //if there is not, then create an empty node to execute
   else
   {
     Shell * p = new Cmd();
@@ -345,22 +370,27 @@ Shell * compose_tree(vector<string> vec)
 
 int main(int argc, char *argv[])
 {
-  //variables
-  Shell * master = NULL;
-  //infinite loop
+    //variables
+    //infinite loop
+    for(;;)
+    {
+      Shell * master = NULL;
+      string input ="";
+      vector<string> pvec;
+      info();
+      if(!getline(cin,input))
+      {
+        break;
+      }
+      if(input == "")
+      {
+        continue;
+      }
+      SubStrBuilder(pvec,input);
+      master = compose_tree(pvec);
+      master->execute();
+      delete master;
+    }
 
- for(;;)
- {
-   info();
-   string input ="";
-   vector<string> pvec;
-   if(!getline(cin,input))
-   {
-    break;
-   }
-   SubStrBuilder(pvec,input);
-   master = compose_tree(pvec);
-   master->execute();
- }
   return 0;
 }
