@@ -3,11 +3,14 @@
 #include "Shell.h"
 #include <queue>
 #include <sys/stat.h>
+#include <iostream>
+#include <queue>
+#include <stack>
 
 class Test: public Shell
 {
   protected:
-  char * command;
+  queue<char * > arg;
   public:
   Test();
   Test(string );

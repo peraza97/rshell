@@ -29,7 +29,6 @@ Cmd::Cmd(string cmd)
           arg.push(a);
         }
       }
-
       temp = "";
     }
     //if space is a letter
@@ -40,7 +39,6 @@ Cmd::Cmd(string cmd)
   }
   //if the foor loop ends but the temp string
   //has not been cleared
-  //if temp is not empty at the end
   if(temp != "")
   {
     char * a = new char [temp.size()-1];
@@ -100,14 +98,15 @@ bool Cmd::execute()
 //this segment of the code is for the cd command
   if(string(command) == "cd")
   {
-    char * home = getenv("HOME");
-    if(home == NULL)
-    {
-      perror("getenv");
-    }
     //no path specified
     if(arg.size() == 0)
     {
+      char * home = getenv("HOME");
+      char * old = getenv("PWD");
+      if(home == NULL)
+      {
+        perror("getenv");
+      }
 
       if(chdir(home) == -1)
       {
@@ -120,21 +119,36 @@ bool Cmd::execute()
           perror("setenv");
           return false;
         }
+        if(setenv("OLDPWD",old, 1) == -1)
+        {
+          perror("setenv OLDPWD");
+          return false;
+        }
+
         return true;
       }
     }
     //path specified
     else
     {
-      string path = string(arg.front());
-      if(path.find('-') != string::npos)
+      char * path = arg.front();
+      char * old = getenv("PWD");
+      //if -
+      if(string(path) == "-")
       {
-        path.replace(path.find("-"),1,"..");
+        path = getenv("OLDPWD");
       }
-      if(chdir(path.c_str()) == -1)
+      //normal path
+      else
+      {
+
+      }
+      //change the directory
+      if(chdir(path) == -1)
       {
         return false;
       }
+      //have to set the environment variable
       else
       {
         char * p = new char[1024];
@@ -146,6 +160,12 @@ bool Cmd::execute()
         if(setenv("PWD",p, 1) == -1)
         {
           perror("setenv");
+          delete[] p;
+          return false;
+        }
+        if(setenv("OLDPWD",old, 1) == -1)
+        {
+          perror("setenv OLDPWD");
           delete[] p;
           return false;
         }

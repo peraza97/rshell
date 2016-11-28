@@ -1,48 +1,88 @@
 #include "Test.h"
 Test::Test()
 {
-    command = NULL;
 }
 
 Test::Test(string cmd)
 {
-  char * t = new char[cmd.size() - 1];
-  strcpy(t,cmd.c_str());
-  this->command = t;
+  string temp = "";
+  char spot;
+  for(unsigned i = 0; i < cmd.size(); ++i)
+  {
+    spot = cmd.at(i);
+    //if spot is a space
+    if(spot == ' ')
+    {
+      if(temp!= "")
+      {
+        char * a = new char [temp.size()-1];
+        memcpy(a, temp.c_str(), temp.size() + 1);
+        arg.push(a);
+      }
+
+      temp = "";
+    }
+    //if space is a letter
+    else
+    {
+    temp+=spot;
+    }
+  }
+  //if the foor loop ends but the temp string
+  //has not been cleared
+  if(temp != "")
+  {
+    char * a = new char [temp.size()-1];
+    memcpy(a, temp.c_str(), temp.size() + 1);
+    arg.push(a);
+  }
+
 }
 
 Test::~Test()
 {
-
-    delete[] command;
-    command = NULL;
+    while(arg.size() > 0)
+    {
+       char * a = arg.front();
+       arg.pop();
+       delete[] a;
+    }
 }
 
 bool Test::execute()
 {
-  if(command == NULL)
+  if(arg.size() == 0)
   {
     cout << "(False)" << endl;
     return false;
   }
     //variables needed
     struct stat buf;
-    char * list[500];
     string flag;
     string path;
-    int temp = Shell::miniParser(command,list);
+    queue<char * > arg_2;
     //if there is only one element
     //this means that there was no flag
-    if(temp == 1)
+    if(arg.size() == 1)
     {
       flag = "-e";
-      path = string(list[0]);
+      path = string(arg.front());
     }
     //there is a flag
-    else
+    else if(arg.size() == 2)
     {
-      flag = string(list[0]);
-      path = string(list[1]);
+      flag = string(arg.front());
+      arg_2.push(arg.front());
+      arg.pop();
+      path = string(arg.front());
+      arg_2.push(arg.front());
+      arg.pop();
+    }
+    while(arg_2.size() > 0)
+    {
+      char * a = arg_2.front();
+      arg_2.pop();
+      arg.push(a);
     }
 
     //now check the path

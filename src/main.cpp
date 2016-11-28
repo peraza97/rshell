@@ -33,7 +33,7 @@ void info()
   p = getpwuid (uid);
   if (p)
     {
-      cout <<"[" << p->pw_name;
+      cout << p->pw_name;
     }
 
   //retrieve host name
@@ -45,9 +45,10 @@ void info()
   char * cw = getenv("PWD");
   if(cw != NULL)
   {
-    cout << " " << cw;
+    string cd = string(cw);
+    cout << " " << cd;
   }
-  cout << "]$ ";
+  cout << "$ ";
 }
 
 void print_vec(vector<string> v)
@@ -305,6 +306,7 @@ Shell * createNodes(string s)
   {
     temp = new Cmd(s);
   }
+  delete split;
   return temp;
 
 }
