@@ -23,7 +23,7 @@ class Cmd: public Shell
   Cmd(string);
   ~Cmd();
 
-  bool execute();
+  virtual bool execute();
 
 };
 #endif

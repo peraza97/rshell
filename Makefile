@@ -1,8 +1,8 @@
 
-COMPILE = g++ 
+COMPILE = g++
 FLAGS =-Wall  -Werror  -ansi -pedantic
 
-OBJS = ./bin/Shell.o ./bin/Cmd.o ./bin/Exit.o ./bin/Test.o  ./bin/Connector.o ./bin/And.o ./bin/Or.o ./bin/Semi.o
+OBJS = ./bin/Shell.o ./bin/Cmd.o ./bin/Exit.o ./bin/Cd.o ./bin/Test.o  ./bin/Connector.o ./bin/And.o ./bin/Or.o ./bin/Semi.o
 
 all: ./src/main.cpp $(OBJS)
 	$(COMPILE) $(FLAGS) -g ./src/main.cpp $(OBJS) -o ./bin/rshell
@@ -16,6 +16,9 @@ all: ./src/main.cpp $(OBJS)
 
 ./bin/Exit.o: ./src/Shell.h ./src/Exit.h ./src/Exit.cpp
 	$(COMPILE) $(FLAGS) -c ./src/Exit.cpp -o ./bin/Exit.o
+
+./bin/Cd.o: ./src/Cmd.h ./src/Cd.h ./src/Cd.cpp
+	$(COMPILE) $(FLAGS) -c ./src/Cd.cpp -o ./bin/Cd.o
 
 ./bin/Test.o: ./src/Shell.h ./src/Test.h ./src/Test.cpp
 	$(COMPILE) $(FLAGS) -c ./src/Test.cpp -o ./bin/Test.o

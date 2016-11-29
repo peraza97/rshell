@@ -18,7 +18,7 @@ Cmd::Cmd(string cmd)
     {
       if(temp!= "")
       {
-        char * a = new char [temp.size()-1];
+        char * a = new char [temp.size()+1];
         memcpy(a, temp.c_str(), temp.size() + 1);
         if(command == NULL)
         {
@@ -41,7 +41,7 @@ Cmd::Cmd(string cmd)
   //has not been cleared
   if(temp != "")
   {
-    char * a = new char [temp.size()-1];
+    char * a = new char [temp.size()+1];
     memcpy(a, temp.c_str(), temp.size() + 1);
     if(command == NULL)
     {
@@ -52,12 +52,14 @@ Cmd::Cmd(string cmd)
       arg.push(a);
     }
   }
-
 }
 
 Cmd::~Cmd()
 {
-  delete[] command;
+  if(command != NULL)
+  {
+    delete[] command;
+  }
   while(arg.size() > 0)
   {
      char * a = arg.front();
@@ -72,7 +74,7 @@ bool Cmd::execute()
     bool status = true;
     char * list[500];
     int i = 1;
-    int arg_size = arg.size();
+    //int arg_size = arg.size();
     queue<char * > arg_2;
 
     //set list[0] to the command
@@ -94,87 +96,6 @@ bool Cmd::execute()
       arg_2.pop();
       arg.push(a);
     }
-
-//this segment of the code is for the cd command
-  if(string(command) == "cd")
-  {
-    //no path specified
-    if(arg.size() == 0)
-    {
-      char * home = getenv("HOME");
-      char * old = getenv("PWD");
-      if(home == NULL)
-      {
-        perror("getenv");
-      }
-
-      if(chdir(home) == -1)
-      {
-        return false;
-      }
-      else
-      {
-        if(setenv("PWD",home, 1) == -1)
-        {
-          perror("setenv");
-          return false;
-        }
-        if(setenv("OLDPWD",old, 1) == -1)
-        {
-          perror("setenv OLDPWD");
-          return false;
-        }
-
-        return true;
-      }
-    }
-    //path specified
-    else
-    {
-      char * path = arg.front();
-      char * old = getenv("PWD");
-      //if -
-      if(string(path) == "-")
-      {
-        path = getenv("OLDPWD");
-      }
-      //normal path
-      else
-      {
-
-      }
-      //change the directory
-      if(chdir(path) == -1)
-      {
-        return false;
-      }
-      //have to set the environment variable
-      else
-      {
-        char * p = new char[1024];
-        getcwd(p,1024);
-        if(p == NULL)
-        {
-        perror("getcwd");
-        }
-        if(setenv("PWD",p, 1) == -1)
-        {
-          perror("setenv");
-          delete[] p;
-          return false;
-        }
-        if(setenv("OLDPWD",old, 1) == -1)
-        {
-          perror("setenv OLDPWD");
-          delete[] p;
-          return false;
-        }
-        delete[] p;
-        return true;
-      }
-    }
-
-  }
 
 
   //fork the process
@@ -203,10 +124,6 @@ bool Cmd::execute()
     {
       status = false;
     }
-  }
-  for(int j = 0; j <= arg_size; ++j)
-  {
-    list[j] = NULL;
   }
   return status;
   }

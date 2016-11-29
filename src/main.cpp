@@ -20,6 +20,7 @@
 #include "Or.h"
 #include "Semi.h"
 #include "Test.h"
+#include "Cd.h"
 
 using namespace std;
 
@@ -27,26 +28,24 @@ using namespace std;
 void info()
 {
   //retrieve username
-  register struct passwd *p;
-  register uid_t uid;
-  uid = geteuid ();
-  p = getpwuid (uid);
-  if (p)
-    {
-      cout << p->pw_name;
-    }
-
+  char * n = getpwuid(geteuid())->pw_name;
   //retrieve host name
   char host[500];
   host[499] = '\0';
   gethostname(host, 499);
-  printf("@%s", host);
+  if(n != NULL)
+  {
+    cout<< n <<"@";
+  }
+  if(host!=NULL)
+  {
+    cout << host << " ";
+  }
   //get current directory
   char * cw = getenv("PWD");
   if(cw != NULL)
   {
-    string cd = string(cw);
-    cout << " " << cd;
+    cout << " " << cw;
   }
   cout << "$ ";
 }
@@ -265,7 +264,8 @@ Shell * createNodes(string s)
   //variables
   Shell * temp;
   char * val;
-  char * split = new char[500];
+  char * split, *store;
+  store = split = new char[500];
   strcpy(split,s.c_str());
   val = strtok(split," ");
   //create an exit node
@@ -300,13 +300,20 @@ Shell * createNodes(string s)
     temp = new Test(s);
     }
   }
+  else if(string(val) == "cd")
+  {
+    temp = new Cd(s);
+  }
 
   //create a command node
   else
   {
     temp = new Cmd(s);
   }
-  delete split;
+  if(store != NULL)
+  {
+  delete[] store;
+  }
   return temp;
 
 }
@@ -379,10 +386,10 @@ Shell * compose_tree(vector<string> vec)
 int main(int argc, char *argv[])
 {
     //variables
+    Shell * master = NULL;
     //infinite loop
     for(;;)
     {
-      Shell * master = NULL;
       string input ="";
       vector<string> pvec;
       info();
@@ -397,7 +404,11 @@ int main(int argc, char *argv[])
       SubStrBuilder(pvec,input);
       master = compose_tree(pvec);
       master->execute();
+      if(master != NULL)
+      {
       delete master;
+      master = NULL;
+      }
     }
 
   return 0;

@@ -1,0 +1,8 @@
+echo "cd /home/opera002/Documents" && cd /home/opera002/Documents && pwd
+echo "cd /home/opera002/Documents" && cd /home/opera002/Documents && pwd
+echo "cd /home/opera002/Documents" && cd /home/opera002/Documents && pwd
+echo "cd /home/opera002/Documents" && cd /home/opera002/Documents && pwd
+echo "cd .." && cd .. && pwd
+(echo "cd .dfadsf." && cd .dsafdsf.) || echo "no path "
+echo "cd /" && cd / && pwd
+echo "cd" && cd && pwd
