@@ -3,7 +3,7 @@ git clone https://github.com/peraza97/rshell.git
 
 cd rshell
 
-git checkout hw3
+git checkout hw4
 
 make
 
