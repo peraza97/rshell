@@ -15,7 +15,7 @@ Test::Test(string cmd)
     {
       if(temp!= "")
       {
-        char * a = new char [temp.size()-1];
+        char * a = new char [temp.size()+1];
         memcpy(a, temp.c_str(), temp.size() + 1);
         arg.push(a);
       }
@@ -32,7 +32,7 @@ Test::Test(string cmd)
   //has not been cleared
   if(temp != "")
   {
-    char * a = new char [temp.size()-1];
+    char * a = new char [temp.size()+1];
     memcpy(a, temp.c_str(), temp.size() + 1);
     arg.push(a);
   }

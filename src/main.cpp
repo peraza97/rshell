@@ -50,15 +50,6 @@ void info()
   cout << "$ ";
 }
 
-void print_vec(vector<string> v)
-{
-  for(unsigned i = 0; i < v.size(); ++i)
-  {
-    cout << " |" << v.at(i) << "| ";
-  }
-}
-
-
 int priority(string op)
 {
   int priority = 0;
@@ -123,9 +114,6 @@ vector<string> infix_to_postfix(vector<string> v)
           result.push_back(c);
         }
     }
-
-
-
     while(!s.empty())
     {
         result.push_back(s.top());
@@ -404,12 +392,8 @@ int main(int argc, char *argv[])
       SubStrBuilder(pvec,input);
       master = compose_tree(pvec);
       master->execute();
-      if(master != NULL)
-      {
       delete master;
       master = NULL;
-      }
     }
-
   return 0;
 }

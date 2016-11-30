@@ -74,9 +74,7 @@ bool Cmd::execute()
     bool status = true;
     char * list[500];
     int i = 1;
-    //int arg_size = arg.size();
     queue<char * > arg_2;
-
     //set list[0] to the command
     list[0] = command;
     //set the rest to the flags
